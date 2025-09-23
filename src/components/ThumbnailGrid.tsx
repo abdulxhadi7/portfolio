@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const thumbnails = Array.from({ length: 12 }).map((_, i) => ({
   id: i,
@@ -7,7 +7,8 @@ const thumbnails = Array.from({ length: 12 }).map((_, i) => ({
   color: `bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500`,
 }));
 
-const itemVariants = {
+// ✅ Explicitly type as Variants
+const itemVariants: Variants = {
   hidden: { opacity: 0, scale: 0.8, y: 50 },
   visible: (i: number) => ({
     opacity: 1,
@@ -16,7 +17,7 @@ const itemVariants = {
     transition: {
       delay: i * 0.1,
       duration: 0.6,
-      type: "spring",
+      type: "spring", // ✅ matches allowed union type
     },
   }),
 };
@@ -37,7 +38,7 @@ export default function ThumbnailGrid() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={i}
+            custom={i} // ✅ Pass index to variants
             whileHover={{ scale: 1.05, rotate: 1 }}
           >
             <div className="absolute inset-0 bg-black/40 rounded-2xl opacity-0 hover:opacity-100 transition flex items-center justify-center">
