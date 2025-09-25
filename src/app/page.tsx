@@ -13,7 +13,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Carousel />  {/* 🚀 Interactive Carousel */}
-      <section className="p-16 space-y-20">
+      <section className=" ">
         <ScrollAnimation />
         
         <ThreeScene />

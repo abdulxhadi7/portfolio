@@ -1,129 +1,135 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Plus, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Html } from "@react-three/drei";
+import { easing } from "maath";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import * as THREE from "three";
 
-const slides = [
-  { id: 1, title: "Creative Designs", color: "bg-pink-500" },
-  { id: 2, title: "Video Editing Magic", color: "bg-purple-500" },
-  { id: 3, title: "Visual Storytelling", color: "bg-blue-500" },
-  { id: 4, title: "Motion Graphics", color: "bg-green-500" },
-  { id: 5, title: "Cinematic Editing", color: "bg-orange-500" },
-];
+export default function ThreeCarousel() {
+  const [rotationIndex, setRotationIndex] = useState(0);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const total = 8; // number of cards
 
-export default function Carousel() {
-  const [index, setIndex] = useState(0);
-
-  // Auto-play
+  // Track window size
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide(1);
-    }, 4000);
-    return () => clearInterval(interval);
+    const handleResize = () => setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const nextSlide = (dir: number) => {
-    setIndex((prev) => (prev + dir + slides.length) % slides.length);
-  };
+  // Rotate carousel
+  const rotate = (dir: number) => setRotationIndex((prev) => prev + dir);
+
+  // Responsive values based on screen width
+  const { width } = dimensions;
+  const cameraZ = width < 768 ? 15 : width < 1280 ? 12 : 10;
+  const fov = width < 768 ? 70 : width < 1280 ? 60 : 50;
+  const cardSize = width < 768 ? 2 : width < 1280 ? 2.5 : 3;
+  const radius = width < 768 ? 4 : width < 1280 ? 4.5 : 5;
 
   return (
-    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-black px-4 sm:px-8">
-      {/* Floating Buttons */}
-      {[
-        "top-24 left-6 sm:left-16",
-        "top-1/2 left-4 sm:left-12",
-        "bottom-32 right-6 sm:right-16",
-        "top-1/3 right-8 sm:right-20",
-      ].map((pos, i) => (
-        <motion.div
-          key={i}
-          whileHover={{ scale: 1.2, rotate: 10 }}
-          whileTap={{ scale: 0.9 }}
-          animate={{ y: [0, -12, 0] }}
-          transition={{
-            duration: 3 + i * 0.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className={`absolute ${pos} z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full ${
-            i % 2 === 0 ? "bg-lime-500 text-black" : "bg-green-600 text-white"
-          } shadow-lg flex items-center justify-center`}
+    <div className="relative w-screen h-screen bg-black overflow-hidden">
+      {/* 3D Scene */}
+      <Canvas camera={{ position: [0, 0, cameraZ], fov }} className="w-full h-full">
+        <Rig rotationIndex={rotationIndex}>
+          <Carousel count={total} radius={radius} size={cardSize} />
+        </Rig>
+      </Canvas>
+
+      {/* Controls */}
+      <div className="absolute inset-0 flex items-center justify-between px-4 sm:px-8">
+        <button
+          onClick={() => rotate(-1)}
+          className="p-3 sm:p-4 bg-green-600/30 backdrop-blur-md rounded-full border border-green-400/40 shadow-lg hover:bg-green-500/40 transition"
         >
-          <Plus size={18} className="sm:size-20" />
-        </motion.div>
-      ))}
-
-      {/* Slides */}
-      <div className="relative w-full h-full flex items-center justify-center">
-        {slides.map((slide, i) => {
-          const position = (i - index + slides.length) % slides.length;
-
-          let style = "opacity-0 scale-50 blur-md";
-          let zIndex = 0;
-          let x = 0;
-
-          if (position === 0) {
-            style = "opacity-100 scale-100 blur-0";
-            zIndex = 30;
-            x = 0;
-          } else if (position === 1) {
-            style = "opacity-70 scale-75 blur-sm";
-            zIndex = 20;
-            x = 220; // smaller offset for mobile
-          } else if (position === slides.length - 1) {
-            style = "opacity-70 scale-75 blur-sm";
-            zIndex = 20;
-            x = -220;
-          }
-
-          return (
-            <motion.div
-              key={slide.id}
-              animate={{ x, zIndex }}
-              transition={{ duration: 0.6, type: "spring" }}
-              className={`absolute inset-0 flex items-center justify-center text-3xl sm:text-5xl md:text-7xl font-extrabold text-white rounded-2xl shadow-xl ${slide.color} ${style}`}
-            >
-              {slide.title}
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Left Arrow */}
-      <button
-        onClick={() => nextSlide(-1)}
-        className="absolute top-1/2 left-4 sm:left-6 -translate-y-1/2 z-30 
-          bg-white/10 backdrop-blur-lg border border-white/20 
-          hover:bg-white/20 transition-all 
-          p-3 sm:p-4 rounded-2xl shadow-lg group"
-      >
-        <ChevronLeft className="text-white w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-1 transition-transform" />
-      </button>
-
-      {/* Right Arrow */}
-      <button
-        onClick={() => nextSlide(1)}
-        className="absolute top-1/2 right-4 sm:right-6 -translate-y-1/2 z-30 
-          bg-white/10 backdrop-blur-lg border border-white/20 
-          hover:bg-white/20 transition-all 
-          p-3 sm:p-4 rounded-2xl shadow-lg group"
-      >
-        <ChevronRight className="text-white w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
-      </button>
-
-      {/* Indicators (optional for mobile UX) */}
-      <div className="absolute bottom-6 flex gap-2 sm:gap-3">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIndex(i)}
-            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${
-              i === index ? "bg-lime-400 scale-125" : "bg-gray-500/60"
-            }`}
-          />
-        ))}
+          <ChevronLeft className="text-white w-6 sm:w-8 h-6 sm:h-8" />
+        </button>
+        <button
+          onClick={() => rotate(1)}
+          className="p-3 sm:p-4 bg-green-600/30 backdrop-blur-md rounded-full border border-green-400/40 shadow-lg hover:bg-green-500/40 transition"
+        >
+          <ChevronRight className="text-white w-6 sm:w-8 h-6 sm:h-8" />
+        </button>
       </div>
     </div>
+  );
+}
+
+// Rotate the carousel smoothly
+function Rig({ children, rotationIndex }: { children: React.ReactNode; rotationIndex: number }) {
+  const ref = useRef<THREE.Group>(null);
+
+  useFrame((_, delta) => {
+    if (ref.current) {
+      easing.damp(ref.current.rotation, "y", rotationIndex * ((Math.PI * 2) / 8), 0.25, delta);
+    }
+  });
+
+  return <group ref={ref}>{children}</group>;
+}
+
+// Carousel cards
+function Carousel({ count = 8, radius = 5, size = 3 }) {
+  return (
+    <>
+      {Array.from({ length: count }, (_, i) => {
+        const angle = (i / count) * Math.PI * 2;
+        return (
+          <Card
+            key={i}
+            position={[Math.sin(angle) * radius, 0, Math.cos(angle) * radius]}
+            rotation={[0, angle + Math.PI, 0]}
+            text={`Card ${i + 1}`}
+            size={size}
+          />
+        );
+      })}
+    </>
+  );
+}
+
+// Individual card
+function Card({
+  position,
+  rotation,
+  text,
+  size = 2.2,
+}: {
+  position: any;
+  rotation: any;
+  text: string;
+  size?: number;
+}) {
+  const ref = useRef<THREE.Mesh>(null);
+  const [hovered, setHovered] = useState(false);
+
+  useFrame((_, delta) => {
+    if (ref.current) {
+      easing.damp3(ref.current.scale, hovered ? [1.15, 1.15, 1] : [1, 1, 1], 0.15, delta);
+    }
+  });
+
+  return (
+    <mesh
+      ref={ref}
+      position={position}
+      rotation={rotation}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
+      {/* Green card */}
+      <planeGeometry args={[size, size]} />
+      <meshStandardMaterial color={hovered ? "#22c55e" : "#16a34a"} roughness={0.3} metalness={0.2} />
+
+      {/* Overlay text */}
+      <Html distanceFactor={10} transform>
+        <div className="px-4 sm:px-6 py-2 sm:py-4 rounded-lg bg-green-500/80 text-white font-semibold text-sm sm:text-lg shadow-lg text-center">
+          {text}
+        </div>
+      </Html>
+    </mesh>
   );
 }
