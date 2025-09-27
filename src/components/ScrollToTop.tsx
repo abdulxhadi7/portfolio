@@ -21,24 +21,28 @@ export default function ScrollToTop() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
-          className="fixed bottom-8 right-8 z-[9999] cursor-pointer"
+          className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[9999] cursor-pointer"
         >
           <motion.button
             onClick={handleClick}
             whileHover={{
-              scale: 1.2,
+              scale: 1.15,
               boxShadow:
-                "0 0 20px rgba(163, 230, 53, 0.9), 0 0 40px rgba(132, 204, 22, 0.8)",
+                "0 0 20px rgba(163, 230, 53, 0.8), 0 0 40px rgba(163, 230, 53, 0.7)",
             }}
             whileTap={{ scale: 0.9 }}
             className="
-              bg-lime-500 text-black p-5 rounded-full
-              shadow-[0_0_20px_rgba(163,230,53,0.9)]
-              border border-lime-400
-              transition-all
+              relative flex items-center justify-center
+              bg-gradient-to-br from-lime-400 via-lime-500 to-green-600
+              text-black p-4 sm:p-5 rounded-2xl
+              shadow-lg border border-lime-300/50
+              backdrop-blur-md transition-all
+              animate-pulse-slow
             "
           >
-            <FaArrowUp size={24} />
+            <FaArrowUp className="w-4 h-4 sm:w-6 sm:h-6" />
+            {/* Glow ring effect */}
+            <span className="absolute inset-0 rounded-2xl bg-lime-400/30 blur-lg animate-ping pointer-events-none" />
           </motion.button>
         </motion.div>
       )}
