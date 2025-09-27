@@ -15,7 +15,7 @@ export default function Home() {
       <Carousel />  {/* 🚀 Interactive Carousel */}
       <section className="p-16 space-y-20">
         <ScrollAnimation />
-        <ScrollAnimation />
+        
         <ThreeScene />
         <ThumbnailGrid />
         <Footer />

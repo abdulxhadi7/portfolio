@@ -10,7 +10,7 @@ export default function ThreeScene() {
         <directionalLight position={[2, 2, 2]} />
         <Sphere args={[1, 100, 200]} scale={1.5}>
           <MeshDistortMaterial
-            color="#ff005b"
+            color="#013220"
             attach="material"
             distort={0.4}
             speed={2}

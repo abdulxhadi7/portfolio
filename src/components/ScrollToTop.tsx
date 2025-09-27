@@ -28,13 +28,14 @@ export default function ScrollToTop() {
             whileHover={{
               scale: 1.2,
               boxShadow:
-                "0 0 20px rgba(255,20,147,0.8), 0 0 40px rgba(255,20,147,0.6)",
+                "0 0 20px rgba(163, 230, 53, 0.9), 0 0 40px rgba(132, 204, 22, 0.8)",
             }}
             whileTap={{ scale: 0.9 }}
             className="
-              bg-pink-500 text-white p-5 rounded-full
-              shadow-[0_0_20px_rgba(255,20,147,0.8)]
-              border border-pink-400
+              bg-lime-500 text-black p-5 rounded-full
+              shadow-[0_0_20px_rgba(163,230,53,0.9)]
+              border border-lime-400
+              transition-all
             "
           >
             <FaArrowUp size={24} />

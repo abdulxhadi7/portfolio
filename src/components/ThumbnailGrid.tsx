@@ -4,7 +4,7 @@ import { motion, Variants } from "framer-motion";
 const thumbnails = Array.from({ length: 12 }).map((_, i) => ({
   id: i,
   title: `Project ${i + 1}`,
-  color: `bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500`,
+  color: `bg-gradient-to-br from-green-900 via-black to-green-900`,
 }));
 
 // ✅ Explicitly type as Variants
@@ -26,7 +26,7 @@ export default function ThumbnailGrid() {
   return (
     <section className="min-h-screen p-12 bg-black text-white">
       <h2 className="text-4xl font-bold text-center mb-12">
-        My Work Showcase ✨
+        My Work Showcase
       </h2>
 
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
