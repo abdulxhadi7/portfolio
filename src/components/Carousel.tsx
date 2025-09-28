@@ -98,8 +98,8 @@ function Card({
   text,
   size = 2.2,
 }: {
-  position: any;
-  rotation: any;
+  position: [number, number, number];  // 3D vector
+  rotation: [number, number, number];  // 3D rotation
   text: string;
   size?: number;
 }) {
