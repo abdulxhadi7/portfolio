@@ -32,7 +32,7 @@ export default function Navbar() {
       className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-6xl px-4"
     >
       <div className="relative">
-        {/* 🔥 Animated Gradient Blob Behind Navbar */}
+        {/* 🌈 Animated Gradient Blob Behind Navbar */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: scrolled ? 1 : 0 }}
@@ -53,20 +53,23 @@ export default function Navbar() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute inset-0 bg-gradient-to-r from-green-600 via-green-400 to-black opacity-60 blur-2xl"
+            className="absolute inset-0"
           />
         </motion.div>
 
-        {/* Glass Navbar */}
+        {/* 🌟 Glass Navbar */}
         <div
-          className={`flex items-center justify-between gap-6 px-6 py-3 rounded-full transition-all duration-500 ${
+          className={`relative flex items-center justify-between gap-6 px-6 py-3 rounded-full transition-all duration-500 overflow-hidden ${
             scrolled
-              ? "bg-black/40 backdrop-blur-xl border border-green-500/30 shadow-lg"
+              ? "bg-white/10 border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-saturate-150"
               : "bg-transparent"
           }`}
         >
+          {/* Glossy highlight strip */}
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-white/40 via-white/10 to-white/40 pointer-events-none" />
+
           {/* Logo Pill */}
-          <div className="flex items-center gap-2 px-4 py-1 border border-green-500/40 rounded-full bg-white/5 backdrop-blur-md">
+          <div className="flex items-center gap-2 px-4 py-1 border border-white/20 rounded-full bg-white/5">
             <div className="h-6 w-6 rounded-md bg-green-500 flex items-center justify-center font-bold text-black">
               S
             </div>
@@ -75,7 +78,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-2 px-3 py-1 border border-green-500/40 rounded-full bg-white/5 backdrop-blur-md">
+          <div className="hidden md:flex items-center gap-2 px-3 py-1 border border-white/20 rounded-full bg-white/5">
             {navLinks.map((link, i) => (
               <motion.a
                 key={i}
@@ -108,7 +111,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
+      {/* 📱 Mobile Dropdown */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -116,7 +119,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mt-3 bg-black/40 backdrop-blur-xl border border-green-500/30 rounded-2xl shadow-lg px-6 py-4"
+            className="md:hidden mt-3 bg-white/10 border border-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] rounded-2xl backdrop-saturate-150 px-6 py-4"
           >
             <div className="flex flex-col gap-4">
               {navLinks.map((link, i) => (
