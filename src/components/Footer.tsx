@@ -139,14 +139,17 @@ export default function Footer() {
         className="mt-10 sm:mt-12 border-t border-gray-700 pt-4 sm:pt-6 text-center text-gray-400 text-xs sm:text-sm relative z-20"
       >
         <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-2 md:gap-4 max-w-6xl mx-auto pb-4">
-          <span>86 Street St. San Francisco, CA</span>
           <span>
+             <a href="tel:+917389110335" className="hover:text-lime-400 transition">
+              abdulxhadi@gmail.com </a></span>
+        
+          <p>© {new Date().getFullYear()} StrangeFx · All Rights Reserved.</p>
+            <span>
             Phone:{" "}
-            <a href="tel:+725214456" className="hover:text-lime-400 transition">
-              + 725 214 456
+            <a href="tel:+917389110335" className="hover:text-lime-400 transition">
+              +91 7389110335
             </a>
           </span>
-          <p>© {new Date().getFullYear()} Abdul Xhadi · All Rights Reserved.</p>
         </div>
       </motion.div>
     </footer>
