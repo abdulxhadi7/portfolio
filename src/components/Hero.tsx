@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
         }}
       />
 
-      {/* Floating Buttons (hidden on small for clarity) */}
+      {/* Floating Buttons */}
       <motion.button
         whileHover={{ scale: 1.2, rotate: 10 }}
         whileTap={{ scale: 0.9 }}
@@ -46,7 +47,7 @@ export default function Home() {
         <Plus size={18} />
       </motion.button>
 
-      {/* Left Section (Text) */}
+      {/* Left Section */}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
@@ -77,19 +78,27 @@ export default function Home() {
         </p>
       </motion.div>
 
-      {/* Right Section (Main Placeholder + Extras) */}
+      {/* Right Section */}
       <motion.div
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
         className="flex-1 relative flex items-center justify-center z-10 mt-10 md:mt-0"
       >
-        {/* Main Product Placeholder */}
+        {/* Main Product Placeholder (now with Image) */}
         <motion.div
           whileHover={{ scale: 1.05, rotate: 2 }}
           transition={{ type: "spring", stiffness: 200 }}
-          className="w-56 h-72 sm:w-64 sm:h-80 md:w-80 md:h-[28rem] rounded-[2rem] bg-gradient-to-b from-lime-500 to-green-900 shadow-2xl"
-        />
+          className="w-56 h-72 sm:w-64 sm:h-80 md:w-80 md:h-[28rem] rounded-[2rem] bg-gradient-to-b from-lime-500 to-green-900 shadow-2xl overflow-hidden flex items-center justify-center"
+        >
+          <Image
+            src="/file.svg"
+            alt="Main Product"
+            width={320}
+            height={400}
+            className="object-contain"
+          />
+        </motion.div>
 
         {/* Top Right Small Boxes */}
         <motion.div

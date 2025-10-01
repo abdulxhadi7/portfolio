@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function ScrollAnimation() {
   return (
@@ -38,12 +39,42 @@ export default function ScrollAnimation() {
 
       {/* Reusable Box */}
       {[
-        { title: "Thumbnail", text: "Eye-catching YouTube and social media thumbnails designed to grab attention instantly.", reverse: false },
-        { title: "Logo Artist", text: "Unique and modern logos crafted to represent your brand identity.", reverse: true },
-        { title: "Banners & Posters", text: "High-quality banners and posters that communicate your message effectively.", reverse: false },
-        { title: "Shorts Editing", text: "Fast-paced, engaging editing for YouTube Shorts and TikTok videos.", reverse: true },
-        { title: "Long Video Editing", text: "Professional long-form video editing with smooth cuts and cinematic effects.", reverse: false },
-        { title: "Reel Editing", text: "Trendy and dynamic Instagram Reels editing to boost reach and engagement.", reverse: true },
+        {
+          title: "Thumbnail",
+          text: "Eye-catching YouTube and social media thumbnails designed to grab attention instantly.",
+          reverse: false,
+          img: "/images/thumbnail.jpg",
+        },
+        {
+          title: "Logo Artist",
+          text: "Unique and modern logos crafted to represent your brand identity.",
+          reverse: true,
+          img: "/images/logo.jpg",
+        },
+        {
+          title: "Banners & Posters",
+          text: "High-quality banners and posters that communicate your message effectively.",
+          reverse: false,
+          img: "/images/banner.jpg",
+        },
+        {
+          title: "Shorts Editing",
+          text: "Fast-paced, engaging editing for YouTube Shorts and TikTok videos.",
+          reverse: true,
+          img: "/images/shorts.jpg",
+        },
+        {
+          title: "Long Video Editing",
+          text: "Professional long-form video editing with smooth cuts and cinematic effects.",
+          reverse: false,
+          img: "/images/longvideo.jpg",
+        },
+        {
+          title: "Reel Editing",
+          text: "Trendy and dynamic Instagram Reels editing to boost reach and engagement.",
+          reverse: true,
+          img: "/images/reels.jpg",
+        },
       ].map((box, i) => (
         <motion.div
           key={i}
@@ -66,9 +97,15 @@ export default function ScrollAnimation() {
             </h3>
             <p className="text-gray-300 text-sm sm:text-base">{box.text}</p>
           </div>
-          {/* Image Placeholder */}
-          <div className="flex-1 bg-gray-800 flex items-center justify-center text-gray-500 text-sm sm:text-base">
-            Image Here
+
+          {/* Image Section */}
+          <div className="flex-1 relative">
+            <Image
+              src={box.img}
+              alt={box.title}
+              fill
+              className="object-cover"
+            />
           </div>
         </motion.div>
       ))}
