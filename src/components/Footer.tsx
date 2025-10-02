@@ -96,7 +96,7 @@ export default function Footer() {
         <div className="space-y-4 flex flex-col items-center md:items-start">
           <h2 className="text-xl sm:text-2xl font-bold text-lime-400">Contact</h2>
           <a
-            href="https://wa.me/your-number-here"
+            href="https://wa.me/917389110335"
             target="_blank"
             className="w-full sm:w-48 flex items-center justify-center gap-2 bg-lime-500 text-black font-semibold px-4 sm:px-5 py-2 rounded-lg shadow-md hover:bg-lime-600 transition text-sm sm:text-base"
           >
@@ -140,11 +140,12 @@ export default function Footer() {
       >
         <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-2 md:gap-4 max-w-6xl mx-auto pb-4">
           <span>
-             <a href="tel:+917389110335" className="hover:text-lime-400 transition">
-              abdulxhadi@gmail.com </a></span>
-        
+            <a href="mailto:abdulxhadi7@gmail.com" className="hover:text-lime-400 transition">
+              abdulxhadi7@gmail.com
+            </a>
+          </span>
           <p>© {new Date().getFullYear()} StrangeFx · All Rights Reserved.</p>
-            <span>
+          <span>
             Phone:{" "}
             <a href="tel:+917389110335" className="hover:text-lime-400 transition">
               +91 7389110335

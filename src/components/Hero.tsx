@@ -54,7 +54,7 @@ export default function Home() {
         transition={{ duration: 1 }}
         className="flex-1 px-6 md:px-16 space-y-6 relative z-10 text-center md:text-left mt-16 md:mt-0"
       >
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight uppercase">
+        <h1 className=" text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight uppercase">
           <span className="text-lime-400">BRING</span> <br />
           IDEAS TO LIFE <br />
           <span className="text-lime-400">Through</span> designs
