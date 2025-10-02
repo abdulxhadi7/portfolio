@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link"; // ✅ Import Link
 
 export default function ConnectPage() {
   const [formData, setFormData] = useState({
@@ -95,7 +96,7 @@ export default function ConnectPage() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white/10 border border-white/20 backdrop-blur-md rounded-2xl p-6 md:p-10 w-full max-w-2xl shadow-lg"
+        className="bg-white/10 border border-white/20 backdrop-blur-md rounded-2xl p-6 md:p-10 w-full max-w-2xl shadow-lg flex flex-col"
       >
         <div className="grid md:grid-cols-2 gap-6">
           <input
@@ -173,6 +174,18 @@ export default function ConnectPage() {
           >
             Send via WhatsApp
           </motion.button>
+        </div>
+
+        {/* ✅ Go Back Button (center bottom of form) */}
+        <div className="flex justify-center mt-8">
+          <Link href="/" passHref>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              className="px-8 py-3 bg-black/40 border border-white/20 text-white font-medium rounded-full hover:bg-green-500/30 transition"
+            >
+              ⬅ Go Back Home
+            </motion.button>
+          </Link>
         </div>
       </motion.div>
 
