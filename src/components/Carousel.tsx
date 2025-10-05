@@ -31,7 +31,7 @@ export default function ThreeCarousel() {
   const radius = width < 768 ? 4 : width < 1280 ? 4.5 : 5;
 
   return (
-    <div className="relative w-screen h-screen bg-black overflow-hidden">
+    <div id="about" className="relative w-screen h-screen bg-black overflow-hidden">
       {/* 3D Scene */}
       <Canvas camera={{ position: [0, 0, cameraZ], fov }} className="w-full h-full">
         <Rig rotationIndex={rotationIndex}>

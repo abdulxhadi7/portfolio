@@ -6,9 +6,9 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#" },
-  { label: "About", href: "#studio" },
-  { label: "Servies", href: "#works" },
-  { label: "Work", href: "#news" },
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Work", href: "#work" },
 ];
 
 export default function Navbar() {
@@ -92,14 +92,16 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop CTA Button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300, damping: 12 }}
-            className="hidden md:flex items-center gap-2 px-5 py-2 bg-green-500 text-black font-medium rounded-full hover:bg-green-400 transition"
-          >
-            Connect →
-          </motion.button>
+          {/* ✅ Desktop CTA Button (now using Link + animation) */}
+          <Link href="/connect">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 12 }}
+              className="hidden md:flex items-center gap-2 px-5 py-2 bg-green-500 text-black font-medium rounded-full hover:bg-green-400 transition"
+            >
+              Connect →
+            </motion.div>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -132,8 +134,10 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+
+              {/* ✅ Mobile Connect Button */}
               <Link
-                href="#"
+                href="/connect"
                 onClick={() => setIsOpen(false)}
                 className="px-5 py-2 bg-green-500 text-black font-medium rounded-full hover:bg-green-400 transition text-center"
               >

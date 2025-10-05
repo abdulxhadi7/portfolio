@@ -4,6 +4,7 @@ import Image from "next/image";
 
 export default function ScrollAnimation() {
   return (
+     <section id="services" >
     <div className="relative space-y-16 w-full max-w-7xl mx-auto p-4 sm:p-6">
       {/* Floating Buttons */}
       <motion.div
@@ -108,7 +109,9 @@ export default function ScrollAnimation() {
             />
           </div>
         </motion.div>
+     
       ))}
     </div>
+    </section>
   );
 }
