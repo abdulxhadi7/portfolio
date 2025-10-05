@@ -67,7 +67,7 @@ export default function ScrollAnimation() {
           title: "Long Video Editing",
           text: "Professional long-form video editing with smooth cuts and cinematic effects.",
           reverse: false,
-          img: "/images/longvideo.jpg",
+          img: "/images/long.jpg",
         },
         {
           title: "Reel Editing",
