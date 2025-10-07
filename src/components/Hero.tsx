@@ -6,7 +6,9 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen flex flex-col md:flex-row items-center text-white overflow-hidden">
+    <section
+      className="relative h-screen w-full flex flex-col md:flex-row items-center justify-between text-white overflow-hidden bg-black"
+    >
       {/* Emerald Void Background */}
       <div
         className="absolute inset-0 z-0"
@@ -22,7 +24,7 @@ export default function Home() {
         whileTap={{ scale: 0.9 }}
         animate={{ y: [0, -12, 0] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden sm:flex absolute top-1/3 right-8 md:right-40 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-lime-500 text-black shadow-lg items-center justify-center"
+        className="hidden sm:flex absolute top-1/3 right-8 md:right-40 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-lime-500 text-black shadow-lg items-center justify-center pointer-events-none"
       >
         <Plus size={18} className="md:size-20" />
       </motion.button>
@@ -32,7 +34,7 @@ export default function Home() {
         whileTap={{ scale: 0.9 }}
         animate={{ y: [0, -12, 0] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden sm:flex absolute top-1/2 right-6 md:right-28 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-lime-400 text-black shadow-lg items-center justify-center"
+        className="hidden sm:flex absolute top-1/2 right-6 md:right-28 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-lime-400 text-black shadow-lg items-center justify-center pointer-events-none"
       >
         <Plus size={18} />
       </motion.button>
@@ -42,7 +44,7 @@ export default function Home() {
         whileTap={{ scale: 0.9 }}
         animate={{ y: [0, -12, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden sm:flex absolute bottom-1/3 right-10 md:right-36 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-600 text-white shadow-lg items-center justify-center"
+        className="hidden sm:flex absolute bottom-1/3 right-10 md:right-36 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-600 text-white shadow-lg items-center justify-center pointer-events-none"
       >
         <Plus size={18} />
       </motion.button>
@@ -52,12 +54,12 @@ export default function Home() {
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
-        className="flex-1 px-6 md:px-16 space-y-6 relative z-10 text-center md:text-left mt-16 md:mt-0"
+        className="flex-1 px-6 md:px-16 space-y-6 relative z-10 text-center md:text-left"
       >
-        <h1 className=" text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight uppercase">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight uppercase">
           <span className="text-lime-400">BRING</span> <br />
           IDEAS TO LIFE <br />
-          <span className="text-lime-400">Through</span> designs
+          <span className="text-lime-400">THROUGH</span> DESIGNS
         </h1>
 
         <p className="text-base sm:text-lg text-gray-300 max-w-md mx-auto md:mx-0">
@@ -83,9 +85,9 @@ export default function Home() {
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
-        className="flex-1 relative flex items-center justify-center z-10 mt-10 md:mt-0"
+        className="flex-1 relative flex items-center justify-center z-10"
       >
-        {/* Main Product Placeholder (now with Image) */}
+        {/* Main Product Placeholder */}
         <motion.div
           whileHover={{ scale: 1.05, rotate: 2 }}
           transition={{ type: "spring", stiffness: 200 }}
@@ -100,7 +102,7 @@ export default function Home() {
           />
         </motion.div>
 
-        {/* Top Right Small Boxes */}
+        {/* Floating Boxes */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -121,7 +123,7 @@ export default function Home() {
           />
         </motion.div>
 
-        {/* Bottom Right Text */}
+        {/* Bottom Text */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -131,11 +133,11 @@ export default function Home() {
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight uppercase">
             <span className="text-lime-400 text-lg sm:text-xl md:text-4xl">
               YOUR VISION
-            </span>{" "}
+            </span>
             <br /> MY CREATION
           </h2>
         </motion.div>
       </motion.div>
-    </main>
+    </section>
   );
 }
