@@ -6,10 +6,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <section
-      className="relative h-screen w-full flex flex-col md:flex-row items-center justify-between text-white overflow-hidden bg-black"
-    >
-      {/* Emerald Void Background */}
+    <section className="relative h-screen w-full flex flex-col md:flex-row items-center justify-between text-white overflow-hidden bg-black">
+      {/* === Background === */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -18,7 +16,7 @@ export default function Home() {
         }}
       />
 
-      {/* Floating Buttons */}
+      {/* === Floating Buttons === */}
       <motion.button
         whileHover={{ scale: 1.2, rotate: 10 }}
         whileTap={{ scale: 0.9 }}
@@ -26,7 +24,7 @@ export default function Home() {
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         className="hidden sm:flex absolute top-1/3 right-8 md:right-40 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-lime-500 text-black shadow-lg items-center justify-center pointer-events-none"
       >
-        <Plus size={18} className="md:size-20" />
+        <Plus size={22} />
       </motion.button>
 
       <motion.button
@@ -36,7 +34,7 @@ export default function Home() {
         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
         className="hidden sm:flex absolute top-1/2 right-6 md:right-28 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-lime-400 text-black shadow-lg items-center justify-center pointer-events-none"
       >
-        <Plus size={18} />
+        <Plus size={22} />
       </motion.button>
 
       <motion.button
@@ -46,10 +44,10 @@ export default function Home() {
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         className="hidden sm:flex absolute bottom-1/3 right-10 md:right-36 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-600 text-white shadow-lg items-center justify-center pointer-events-none"
       >
-        <Plus size={18} />
+        <Plus size={22} />
       </motion.button>
 
-      {/* Left Section */}
+      {/* === Left Section === */}
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
@@ -80,29 +78,29 @@ export default function Home() {
         </p>
       </motion.div>
 
-      {/* Right Section */}
+      {/* === Right Section === */}
       <motion.div
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
         className="flex-1 relative flex items-center justify-center z-10"
       >
-        {/* Main Product Placeholder */}
+        {/* === Main Image Card === */}
         <motion.div
           whileHover={{ scale: 1.05, rotate: 2 }}
           transition={{ type: "spring", stiffness: 200 }}
           className="w-56 h-72 sm:w-64 sm:h-80 md:w-80 md:h-[28rem] rounded-[2rem] bg-gradient-to-b from-lime-500 to-green-900 shadow-2xl overflow-hidden flex items-center justify-center"
         >
           <Image
-            src="/file.svg"
+            src="/images/f2.jpeg"
             alt="Main Product"
-            width={320}
+            width={520}
             height={400}
-            className="object-contain"
+            className="object-cover w-full h-full"
           />
         </motion.div>
 
-        {/* Floating Boxes */}
+        {/* === Floating Boxes === */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -123,7 +121,7 @@ export default function Home() {
           />
         </motion.div>
 
-        {/* Bottom Text */}
+        {/* === Bottom Text === */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
