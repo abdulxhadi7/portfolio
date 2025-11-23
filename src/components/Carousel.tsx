@@ -54,7 +54,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8, delay: 0.12 }}
               className="text-neutral-300 mt-6 max-w-2xl"
             >
-              I'm a multidisciplinary creator — graphic designer, video editor,
+              I&apos;m a multidisciplinary creator — graphic designer, video editor,
               and web developer. I design brand identities, cut cinematic
               promos, and build fast, interactive websites that showcase work
               beautifully.
