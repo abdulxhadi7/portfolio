@@ -21,9 +21,10 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden">
+    <main  className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Subtle radial background */}
-      <div
+     <section id="about"></section>
+      <div 
         className="absolute inset-0 -z-20"
         style={{
           background:
@@ -44,7 +45,7 @@ export default function AboutPage() {
               className="text-4xl sm:text-5xl md:text-6xl leading-tight font-extrabold uppercase"
             >
               I craft <span className="text-lime-400">visual stories</span>
-              <br /> that move — from pixels to frames.
+              <br /> that move from pixels to frames.
             </motion.h1>
 
             <motion.p
@@ -54,7 +55,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8, delay: 0.12 }}
               className="text-neutral-300 mt-6 max-w-2xl"
             >
-              I&apos;m a multidisciplinary creator — graphic designer, video editor,
+              I&apos;m a multidisciplinary creator graphic designer, video editor,
               and web developer. I design brand identities, cut cinematic
               promos, and build fast, interactive websites that showcase work
               beautifully.
@@ -226,16 +227,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-10">
-        <div className="max-w-6xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-6 text-neutral-400">
-          <div>© {new Date().getFullYear()} StrangeFx — Crafted with care</div>
-          <div className="flex items-center gap-4">
-            <a href="mailto:abdulxhadi7@gmail.com" className="hover:text-lime-400">abdulxhadi7@gmail.com</a>
-            <a href="/resume.pdf" className="hover:text-lime-400">Resume</a>
-          </div>
-        </div>
-      </footer>
+      
     </main>
   );
 }

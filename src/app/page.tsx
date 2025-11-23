@@ -31,17 +31,17 @@ export default function Home() {
         <Hero />
       </section>
 
-      <section id="carousel" className="w-full py-20">
+      <section id="about" className="w-full py-20">
         <AboutPage />
       </section>
 
-      <section id="scroll-animation" className="w-full py-20">
+      <section id="services" className="w-full py-20">
         <ServicesAccordion />
       </section>
 
      
 
-      <section id="thumbnails" className="w-full py-20">
+      <section id="work" className="w-full py-20">
         <WorkCategoriesPage />
       </section>
 

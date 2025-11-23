@@ -55,7 +55,7 @@ export default function ServicesAccordion() {
 
     const timer = setTimeout(() => {
       setActive(hoveredIndex);
-    }, 200); // 1 second delay
+    }, 300); // 1 second delay
 
     return () => clearTimeout(timer);
   }, [hoveredIndex]);
@@ -70,7 +70,7 @@ export default function ServicesAccordion() {
         }}
       />
 
-      <section className="pt-28 pb-20">
+      <section id="services" className="pt-28 pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
