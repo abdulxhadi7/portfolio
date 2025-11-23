@@ -1,20 +1,15 @@
 "use client";
 
 import { motion, easeOut } from "framer-motion";
-import Image from "next/image";
-import React, { useState } from "react";
+
+import React from "react";
 import { useRouter } from "next/navigation";
 
 export default function ThumbnailGrid() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const router = useRouter();
 
-  const images = [
-    "/images/i1.jpg","/images/i2.jpg","/images/i3.jpg","/images/i4.jpg",
-    "/images/i5.jpg","/images/i6.jpg","/images/i7.jpg","/images/i8.jpg",
-    "/images/i9.jpg","/images/i10.jpg","/images/i11.jpg","/images/i12.jpg",
-    "/images/i13.jpg","/images/i14.jpg","/images/i15.jpg",
-  ];
+  // Replace images with a single Coming Soon card
+  const items = new Array(8).fill("coming-soon");
 
   const fadeZoomVariants = {
     hidden: { opacity: 0, scale: 0.9, y: 40 },
@@ -30,6 +25,7 @@ export default function ThumbnailGrid() {
     <section className="relative min-h-screen bg-gradient-to-b from-black via-green-900/45 to-black text-white px-4 sm:px-8 md:px-12 py-16 overflow-hidden">
       <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,rgba(34,197,94,0.15),transparent_70%)] pointer-events-none" />
 
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -44,76 +40,39 @@ export default function ThumbnailGrid() {
           Our Creative Works
         </h2>
         <p className="text-gray-300 text-lg sm:text-xl leading-relaxed">
-          Dive into our world of design and innovation — each piece tells a story of creativity and passion.
+          Exciting things are on the way — stay tuned for premium 3D graphics,
+          UI showcases, and more.
         </p>
       </motion.div>
 
+      {/* Grid */}
       <div
         className="grid gap-5 sm:gap-7 md:gap-8 relative z-10"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gridAutoRows: "minmax(220px, auto)" }}
+        style={{
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gridAutoRows: "minmax(220px, auto)",
+        }}
       >
-        {images.map((image, i) => (
+        {items.map((_, i) => (
           <motion.div
             key={i}
-            className="group relative rounded-3xl overflow-hidden shadow-lg shadow-green-900/20 cursor-pointer bg-gradient-to-tr from-gray-800 to-gray-900"
+            className="group relative rounded-3xl overflow-hidden shadow-lg shadow-green-900/20 bg-gradient-to-tr from-gray-800 to-gray-900 flex items-center justify-center"
             variants={fadeZoomVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={i}
-            whileHover={{ scale: 1.03, rotate: 0.3 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            onClick={() => setSelectedImage(image)}
           >
-            <Image
-              src={image}
-              alt={`Creative work ${i + 1}`}
-              fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+            <div className="absolute inset-0 bg-black/40"></div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h3 className="text-lg font-semibold mb-1">Project {i + 1}</h3>
-                <p className="text-sm text-gray-300">View details</p>
-              </motion.div>
-            </div>
+            <h3 className="relative z-10 text-2xl font-bold text-green-400 tracking-wide">
+              COMING SOON
+            </h3>
           </motion.div>
         ))}
       </div>
 
-      {selectedImage && (
-        <motion.div
-          className="fixed inset-0 bg-black/95 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={selectedImage}
-              alt="Full view"
-              width={1200}
-              height={800}
-              className="rounded-3xl shadow-2xl object-contain w-full h-auto"
-            />
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 text-white text-4xl font-bold hover:text-green-400 transition"
-            >
-              ×
-            </button>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Floating Go Back Button */}
+      {/* Go Back Button */}
       <button
         onClick={() => router.push("/")}
         className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600/90 hover:bg-green-500 rounded-2xl font-medium text-white transition-all duration-300 hover:scale-105 z-50 shadow-lg"

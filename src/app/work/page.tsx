@@ -23,10 +23,11 @@ export default function WorkPage() {
     { title: "Thumbnails", icon: <ImageIcon size={42} />, slug: "thumbnails" },
     { title: "Logos", icon: <BadgeHelp size={42} />, slug: "logos" },
     { title: "Banners & Posters", icon: <LayoutDashboard size={42} />, slug: "youtube-banners" },
-    { title: "Shorts", icon: <Film size={42} />, slug: "shorts" },
-    { title: "Reels", icon: <Camera size={42} />, slug: "reels" },
+    { title: "Shorts & Reels", icon: <Film size={42} />, slug: "shorts" },
+    
 
     { title: "3D Graphics", icon: <Shapes size={42} />, slug: "3d-graphics" },
+    { title: "Web / Ui Designs", icon: <Camera size={42} />, slug: "web-ui" },
   ];
 
   return (
