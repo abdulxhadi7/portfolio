@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AboutPage from "@/components/Carousel";
-import ScrollAnimation from "@/components/ScrollAnimation";
-
-import ThumbnailGrid from "@/components/ThumbnailGrid";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import Preloader from "@/components/Preloader";

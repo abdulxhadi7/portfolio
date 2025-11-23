@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import {
   Image as ImageIcon,
-  Layers,
+  
   Film,
   Camera,
   BadgeHelp,
