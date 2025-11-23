@@ -3,13 +3,16 @@
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Carousel from "@/components/Carousel";
+import AboutPage from "@/components/Carousel";
 import ScrollAnimation from "@/components/ScrollAnimation";
-import ThreeScene from "@/components/ThreeScene";
+
 import ThumbnailGrid from "@/components/ThumbnailGrid";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import Preloader from "@/components/Preloader";
+import WorkCategoriesPage from "./work/page";
+import ServicesAccordion from "@/components/ScrollAnimation";
+
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -32,19 +35,17 @@ export default function Home() {
       </section>
 
       <section id="carousel" className="w-full py-20">
-        <Carousel />
+        <AboutPage />
       </section>
 
       <section id="scroll-animation" className="w-full py-20">
-        <ScrollAnimation />
+        <ServicesAccordion />
       </section>
 
-      <section id="three-scene" className="w-full py-20">
-        <ThreeScene />
-      </section>
+     
 
       <section id="thumbnails" className="w-full py-20">
-        <ThumbnailGrid />
+        <WorkCategoriesPage />
       </section>
 
       <footer id="footer" className="mt-auto w-full">

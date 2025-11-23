@@ -1,117 +1,174 @@
 "use client";
-import { motion } from "framer-motion";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { Camera } from "lucide-react";
 
-export default function ScrollAnimation() {
+const services = [
+  {
+    title: "Thumbnail",
+    description:
+      "Eye-catching YouTube and social media thumbnails designed to grab instant attention.",
+    img: "/images/thumbnail.jpg",
+  },
+  {
+    title: "Logo Artist",
+    description:
+      "Unique and modern logos crafted to elevate your brand identity.",
+    img: "/images/logo.jpg",
+  },
+  {
+    title: "Banners & Posters",
+    description:
+      "Premium posters and banners that communicate your message visually.",
+    img: "/images/banner.jpg",
+  },
+  {
+    title: "Shorts Editing",
+    description:
+      "Fast-paced, engaging edits for YouTube Shorts and TikTok.",
+    img: "/images/shorts.jpg",
+  },
+  {
+    title: "Long Video Editing",
+    description:
+      "Cinematic long-form editing with clean cuts, pacing, and story flow.",
+    img: "/images/long.jpg",
+  },
+  {
+    title: "Reel Editing",
+    description:
+      "Trendy Instagram Reels that boost reach and engagement.",
+    img: "/images/reels.jpg",
+  },
+];
+
+export default function ServicesAccordion() {
+  const [active, setActive] = useState(0);
+  const [hovering, setHovering] = useState<number | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  // Hover delay logic (1 second)
+  useEffect(() => {
+    if (hoveredIndex === null) return;
+
+    const timer = setTimeout(() => {
+      setActive(hoveredIndex);
+    }, 200); // 1 second delay
+
+    return () => clearTimeout(timer);
+  }, [hoveredIndex]);
+
   return (
-     <section id="services" >
-    <div className="relative space-y-16 w-full max-w-7xl mx-auto p-4 sm:p-6">
-      {/* Floating Buttons */}
-      <motion.div
-        animate={{ y: [0, -15, 0] }}
-        transition={{ repeat: Infinity, duration: 3 }}
-        className="absolute top-10 left-4 sm:left-10 w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-lime-500/80 shadow-[0_0_20px_rgba(163,230,53,0.7)]"
-      />
-      <motion.div
-        animate={{ y: [0, 20, 0] }}
-        transition={{ repeat: Infinity, duration: 4 }}
-        className="absolute top-1/3 right-6 sm:right-16 w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-green-500/80 shadow-[0_0_20px_rgba(163,230,53,0.7)]"
-      />
-      <motion.div
-        animate={{ y: [0, -25, 0] }}
-        transition={{ repeat: Infinity, duration: 5 }}
-        className="absolute bottom-20 left-1/4 w-6 sm:w-8 h-6 sm:h-8 rounded-full bg-lime-800/80 shadow-[0_0_20px_rgba(163,230,53,0.7)]"
-      />
-      <motion.div
-        animate={{ y: [0, 18, 0] }}
-        transition={{ repeat: Infinity, duration: 3.5 }}
-        className="absolute bottom-32 right-8 sm:right-24 w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-lime-500/80 shadow-[0_0_20px_rgba(163,230,53,0.7)]"
-      />
-      <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ repeat: Infinity, duration: 4.2 }}
-        className="absolute top-64 left-10 sm:left-64 w-10 sm:w-14 h-10 sm:h-14 rounded-full bg-green-500/80 shadow-[0_0_20px_rgba(163,230,53,0.7)]"
-      />
-      <motion.div
-        animate={{ y: [0, 12, 0] }}
-        transition={{ repeat: Infinity, duration: 3.8 }}
-        className="absolute bottom-10 right-6 sm:right-10 w-7 sm:w-9 h-7 sm:h-9 rounded-full bg-lime-400/80 shadow-[0_0_20px_rgba(163,230,53,0.7)]"
+    <main className="min-h-screen bg-black text-white overflow-hidden">
+      <div
+        className="absolute inset-0 -z-20"
+        style={{
+          background:
+            "radial-gradient(1200px 600px at 10% 20%, rgba(34,197,94,0.06), transparent 10%), radial-gradient(900px 400px at 90% 80%, rgba(16,185,129,0.03), transparent 10%), #000000",
+        }}
       />
 
-      {/* Reusable Box */}
-      {[
-        {
-          title: "Thumbnail",
-          text: "Eye-catching YouTube and social media thumbnails designed to grab attention instantly.",
-          reverse: false,
-          img: "/images/thumbnail.jpg",
-        },
-        {
-          title: "Logo Artist",
-          text: "Unique and modern logos crafted to represent your brand identity.",
-          reverse: true,
-          img: "/images/logo.jpg",
-        },
-        {
-          title: "Banners & Posters",
-          text: "High-quality banners and posters that communicate your message effectively.",
-          reverse: false,
-          img: "/images/banner.jpg",
-        },
-        {
-          title: "Shorts Editing",
-          text: "Fast-paced, engaging editing for YouTube Shorts and TikTok videos.",
-          reverse: true,
-          img: "/images/shorts.jpg",
-        },
-        {
-          title: "Long Video Editing",
-          text: "Professional long-form video editing with smooth cuts and cinematic effects.",
-          reverse: false,
-          img: "/images/long.jpg",
-        },
-        {
-          title: "Reel Editing",
-          text: "Trendy and dynamic Instagram Reels editing to boost reach and engagement.",
-          reverse: true,
-          img: "/images/reels.jpg",
-        },
-      ].map((box, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, x: box.reverse ? 80 : -80 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          whileHover={{
-            scale: 1.02,
-            boxShadow: "0 0 30px rgba(163, 230, 53, 0.6)",
-          }}
-          className={`w-full min-h-[280px] sm:h-[400px] flex flex-col ${
-            box.reverse ? "sm:flex-row-reverse" : "sm:flex-row"
-          } rounded-2xl overflow-hidden bg-gradient-to-b from-black to-green-950 border border-lime-500 shadow-lg`}
-        >
-          {/* Text Section */}
-          <div className="w-full sm:w-[280px] bg-black/40 border-t sm:border-t-0 sm:border-r sm:border-lime-500 p-6 flex flex-col justify-center">
-            <h3 className="text-2xl sm:text-3xl font-bold text-lime-400 mb-3">
-              {box.title}
-            </h3>
-            <p className="text-gray-300 text-sm sm:text-base">{box.text}</p>
-          </div>
+      <section className="pt-28 pb-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase leading-tight"
+          >
+            My <span className="text-lime-400">Services</span>
+          </motion.h1>
 
-          {/* Image Section */}
-          <div className="flex-1 relative">
-            <Image
-              src={box.img}
-              alt={box.title}
-              fill
-              className="object-cover"
-            />
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-neutral-300 max-w-2xl mt-4"
+          >
+            High-impact design, editing and visual work — polished, consistent and
+            crafted to stand out.
+          </motion.p>
+
+          <div className="mt-16 flex w-full gap-4 overflow-x-auto no-scrollbar pb-6">
+            {services.map((s, index) => {
+              const isActive = index === active;
+
+              return (
+                <motion.div
+                  key={index}
+                  layout
+                  onClick={() => setActive(index)}
+                  onMouseEnter={() => {
+                    setHovering(index);
+                    setHoveredIndex(index); // start delayed hover timer
+                  }}
+                  onMouseLeave={() => {
+                    setHovering(null);
+                    setHoveredIndex(null); // cancel hover timer
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 220,
+                    damping: 26,
+                  }}
+                  className={`relative rounded-[2rem] cursor-pointer overflow-hidden backdrop-blur-md border border-white/10 bg-white/4 shadow-xl transition-all
+                    h-[480px]
+                    ${isActive ? "w-[700px]" : "w-[80px] opacity-60 hover:opacity-90"}
+                  `}
+                >
+                  <div className="absolute inset-0">
+                    <Image
+                      src={s.img}
+                      alt={s.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/80" />
+                  </div>
+
+                  {hovering === index && !isActive && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center px-4"
+                    >
+                      <p className="text-white text-sm font-medium">
+                        {s.title}
+                      </p>
+                    </motion.div>
+                  )}
+
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 30 }}
+                        transition={{ duration: 0.45 }}
+                        className="absolute bottom-0 w-full p-8 flex items-start gap-4"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border border-white/10 backdrop-blur-sm">
+                          <Camera size={20} className="text-white" />
+                        </div>
+
+                        <div>
+                          <h2 className="text-2xl font-semibold">{s.title}</h2>
+                          <p className="text-white/80 text-sm mt-2 leading-relaxed">
+                            {s.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
-        </motion.div>
-     
-      ))}
-    </div>
-    </section>
+        </div>
+      </section>
+    </main>
   );
 }
