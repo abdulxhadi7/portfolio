@@ -23,11 +23,9 @@ export default function ThumbnailGrid() {
     "/logos/l11.png",
     "/logos/l12.png",
     "/logos/l13.jpg",
-    "/logos/l14.jpg",
+    "/logos/l14.png",
     "/logos/l15.jpg",
-    "/logos/l16.jpg",
-    "/logos/l17.jpg",
-    "/logos/l18.jpg",
+    
     
   ];
 

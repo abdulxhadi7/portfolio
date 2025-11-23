@@ -26,10 +26,7 @@ export default function ThumbnailGrid() {
     "/youtube/b14.png",
     "/youtube/b15.jpg",
     "/youtube/b16.png",
-    "/youtube/b17.jpg",
-    "/youtube/b18.jpg",
-    "/youtube/b19.png",
-    "/youtube/b20.jpg",
+    
   ];
 
   const fadeZoomVariants = {
