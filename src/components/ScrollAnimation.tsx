@@ -26,8 +26,7 @@ const services = [
   },
   {
     title: "Shorts Editing",
-    description:
-      "Fast-paced, engaging edits for YouTube Shorts and TikTok.",
+    description: "Fast-paced, engaging edits for YouTube Shorts and TikTok.",
     img: "/images/shorts.jpg",
   },
   {
@@ -38,8 +37,7 @@ const services = [
   },
   {
     title: "Reel Editing",
-    description:
-      "Trendy Instagram Reels that boost reach and engagement.",
+    description: "Trendy Instagram Reels that boost reach and engagement.",
     img: "/images/reels.jpg",
   },
 ];
@@ -49,19 +47,18 @@ export default function ServicesAccordion() {
   const [hovering, setHovering] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // Hover delay logic (1 second)
+  // hover delay
   useEffect(() => {
     if (hoveredIndex === null) return;
-
     const timer = setTimeout(() => {
       setActive(hoveredIndex);
-    }, 300); // 1 second delay
-
+    }, 300);
     return () => clearTimeout(timer);
   }, [hoveredIndex]);
 
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
+      {/* background */}
       <div
         className="absolute inset-0 -z-20"
         style={{
@@ -87,11 +84,12 @@ export default function ServicesAccordion() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-neutral-300 max-w-2xl mt-4"
           >
-            High-impact design, editing and visual work — polished, consistent and
-            crafted to stand out.
+            High-impact design, editing and visual work — polished, consistent
+            and crafted to stand out.
           </motion.p>
 
-          <div className="mt-16 flex w-full gap-4 overflow-x-auto no-scrollbar pb-6">
+          {/* Accordion */}
+          <div className="mt-16 flex w-full gap-4 overflow-x-auto no-scrollbar pb-6 md:flex-row md:overflow-visible flex-col">
             {services.map((s, index) => {
               const isActive = index === active;
 
@@ -102,21 +100,34 @@ export default function ServicesAccordion() {
                   onClick={() => setActive(index)}
                   onMouseEnter={() => {
                     setHovering(index);
-                    setHoveredIndex(index); // start delayed hover timer
+                    setHoveredIndex(index);
                   }}
                   onMouseLeave={() => {
                     setHovering(null);
-                    setHoveredIndex(null); // cancel hover timer
+                    setHoveredIndex(null);
                   }}
                   transition={{
                     type: "spring",
                     stiffness: 220,
                     damping: 26,
                   }}
-                  className={`relative rounded-[2rem] cursor-pointer overflow-hidden backdrop-blur-md border border-white/10 bg-white/4 shadow-xl transition-all
-                    h-[480px]
-                    ${isActive ? "w-[700px]" : "w-[80px] opacity-60 hover:opacity-90"}
-                  `}
+                  className={`relative rounded-3xl cursor-pointer overflow-hidden backdrop-blur-md border border-white/10 bg-white/4 shadow-xl transition-all
+                  
+                  /* 📱 Mobile */
+                  ${
+                    isActive
+                      ? "h-[420px] w-full"
+                      : "h-[180px] w-full opacity-70"
+                  }
+
+                  /* 💻 Desktop */
+                  md:h-[480px] 
+                  ${
+                    isActive
+                      ? "md:w-[700px]"
+                      : "md:w-[80px] md:opacity-60 md:hover:opacity-90"
+                  }
+                `}
                 >
                   <div className="absolute inset-0">
                     <Image
@@ -128,12 +139,13 @@ export default function ServicesAccordion() {
                     <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/80" />
                   </div>
 
+                  {/* Hover title */}
                   {hovering === index && !isActive && (
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 20 }}
-                      className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center px-4"
+                      className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center px-4 hidden md:block"
                     >
                       <p className="text-white text-sm font-medium">
                         {s.title}
@@ -141,6 +153,7 @@ export default function ServicesAccordion() {
                     </motion.div>
                   )}
 
+                  {/* Active content */}
                   <AnimatePresence>
                     {isActive && (
                       <motion.div
