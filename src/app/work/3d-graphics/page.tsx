@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, easeOut } from "framer-motion";
-
 import React from "react";
 import { useRouter } from "next/navigation";
 
@@ -63,7 +62,7 @@ export default function ThumbnailGrid() {
             viewport={{ once: true, amount: 0.2 }}
             custom={i}
           >
-            <div className="absolute inset-0 bg-black/40"></div>
+            <div className="absolute inset-0 bg-black/40" />
 
             <h3 className="relative z-10 text-2xl font-bold text-green-400 tracking-wide">
               COMING SOON
@@ -74,7 +73,7 @@ export default function ThumbnailGrid() {
 
       {/* Go Back Button */}
       <button
-        onClick={() => router.push("/")}
+        onClick={() => router.push("/#work")}
         className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600/90 hover:bg-green-500 rounded-2xl font-medium text-white transition-all duration-300 hover:scale-105 z-50 shadow-lg"
       >
         Go Back

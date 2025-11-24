@@ -104,7 +104,7 @@ export default function ShowcasePage() {
 
       {/* Back Button */}
       <button
-        onClick={() => router.push("/")}
+        onClick={() => router.push("/#work")}
         className="fixed left-1/2 -translate-x-1/2 bottom-6 bg-green-600 hover:bg-green-500 px-8 py-3 rounded-xl shadow-lg"
       >
         Go Back

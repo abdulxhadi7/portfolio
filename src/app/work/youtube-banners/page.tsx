@@ -128,7 +128,7 @@ export default function ThumbnailGrid() {
 
       {/* Floating Go Back Button */}
       <button
-        onClick={() => router.push("/")}
+        onClick={() => router.push("/#work")}
         className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600/90 hover:bg-green-500 rounded-2xl font-medium text-white transition-all duration-300 hover:scale-105 z-50 shadow-lg"
       >
         Go Back
