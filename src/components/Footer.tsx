@@ -1,158 +1,148 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { FaInstagram, FaTwitter, FaDiscord, FaWhatsapp, FaEnvelope } from "react-icons/fa";
-import { Plus } from "lucide-react";
+import {
+  FaInstagram,
+  FaTwitter,
+  FaDiscord,
+  FaWhatsapp,
+  FaEnvelope,
+} from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-gradient-to-b from-black to-green-950 text-white overflow-hidden">
+    <footer className="relative w-full bg-black text-white overflow-hidden">
 
-      {/* Let's Talk Section with Curved Divider */}
-      <div className="relative">
-        <div className="w-full bg-black/90 py-16 sm:py-24 px-6 sm:px-12 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6">
-          <div className="text-center md:text-left">
-            <span className="text-lg sm:text-xl text-gray-400 block mb-2">
-              Want to <br /> Start a Project?
-            </span>
-            <h2 className="text-4xl sm:text-6xl font-extrabold text-lime-400 leading-tight">
-              {"Let's"} Talk
-            </h2>
-          </div>
-          <div className="flex items-center mt-6 md:mt-0">
-            <a href="#">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-8 h-8 sm:w-10 sm:h-10 text-lime-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 15l7-7 7 7"
-                />
-              </svg>
-            </a>
-          </div>
-        </div>
+      {/* ================= BACKGROUND EFFECTS ================= */}
+      <div className="absolute inset-0 -z-20 bg-black" />
 
-        {/* Curved Divider */}
-        <div className="absolute -bottom-1 w-full overflow-hidden leading-[0] rotate-180">
-          <svg
-            className="relative block w-full h-12 sm:h-16"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-          >
-            <path
-              fill="#000000"
-              fillOpacity="1"
-              d="M0,64L80,106.7C160,149,320,235,480,261.3C640,288,800,256,960,234.7C1120,213,1280,203,1360,197.3L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
-            />
-          </svg>
-        </div>
-      </div>
+      {/* Gradient Glow */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_20%,rgba(34,197,94,0.15),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(16,185,129,0.08),transparent_40%)]" />
 
-      {/* Floating Buttons */}
-      {[
-        "top-6 left-10 sm:top-10 sm:left-40",
-        "top-1/3 right-6 sm:top-1/2 sm:right-16",
-        "bottom-6 left-1/4 sm:left-1/3",
-      ].map((pos, i) => (
-        <motion.div
-          key={i}
-          whileHover={{ scale: 1.2, rotate: 12 }}
-          whileTap={{ scale: 0.9 }}
-          animate={{ y: [0, -12, 0] }}
-          transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}
-          className={`hidden xs:flex absolute ${pos} z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full ${
-            i % 2 === 0 ? "bg-lime-500 text-black" : "bg-green-600 text-white"
-          } shadow-lg items-center justify-center`}
-        >
-          <Plus size={18} />
-        </motion.div>
-      ))}
+      {/* Floating Glow Orbs */}
+      <motion.div
+        animate={{ y: [0, -40, 0] }}
+        transition={{ duration: 10, repeat: Infinity }}
+        className="absolute top-10 left-10 w-40 h-40 bg-lime-500/20 blur-3xl rounded-full"
+      />
+      <motion.div
+        animate={{ y: [0, 40, 0] }}
+        transition={{ duration: 12, repeat: Infinity }}
+        className="absolute bottom-10 right-10 w-52 h-52 bg-green-500/20 blur-3xl rounded-full"
+      />
 
-      {/* Main Footer Grid */}
+      {/* ================= PREMIUM CTA ================= */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 py-12 sm:py-20 px-6 sm:px-12 relative z-20 text-center md:text-left"
+        className="relative z-10 max-w-6xl mx-auto px-6 py-24 text-center"
       >
-        {/* About */}
-        <div className="space-y-4 md:text-left">
-          <h2 className="text-xl sm:text-2xl font-bold text-lime-400">StrangeFx</h2>
-          <p className="text-gray-300 text-sm sm:text-base max-w-md leading-relaxed mx-auto md:mx-0">
-            Crafting designs that inspire, visuals that connect, and edits that
-            leave a lasting impact. Let’s bring your vision to life with modern
-            creativity.
-          </p>
-        </div>
+        <h2 className="text-4xl sm:text-6xl font-extrabold leading-tight">
+          Let’s Build Something
+          <br />
+          <span className="text-lime-400">Extraordinary</span>
+        </h2>
 
-        {/* Contact (Stacked Buttons) */}
-        <div className="space-y-4 flex flex-col items-center md:items-start">
-          <h2 className="text-xl sm:text-2xl font-bold text-lime-400">Contact</h2>
-          <a
-            href="https://wa.me/917389110335"
-            target="_blank"
-            className="w-full sm:w-48 flex items-center justify-center gap-2 bg-lime-500 text-black font-semibold px-4 sm:px-5 py-2 rounded-lg shadow-md hover:bg-lime-600 transition text-sm sm:text-base"
-          >
-            <FaWhatsapp size={18} /> WhatsApp
-          </a>
-          <a
-            href="mailto:abdulxhadi7@gmail.com"
-            className="w-full sm:w-48 flex items-center justify-center gap-2 bg-lime-500 text-black font-semibold px-4 sm:px-5 py-2 rounded-lg shadow-md hover:bg-lime-600 transition text-sm sm:text-base"
-          >
-            <FaEnvelope size={18} /> Email
-          </a>
-        </div>
+        <p className="mt-6 text-white/60 max-w-2xl mx-auto">
+          Whether it’s branding, cinematic edits, or high-performing websites —
+          I turn your vision into impactful digital experiences.
+        </p>
 
-        {/* Social */}
-        <div className="space-y-4 flex flex-col items-center md:items-start">
-          <h2 className="text-xl sm:text-2xl font-bold text-lime-400">Follow Me</h2>
-          <div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6">
-            <a href="https://instagram.com/strangefx" target="_blank" className="hover:text-pink-500 transition-transform hover:scale-110">
-              <FaInstagram size={24} />
-            </a>
-            <a href="https://twitter.com/strangefx" target="_blank" className="hover:text-sky-400 transition-transform hover:scale-110">
-              <FaTwitter size={24} />
-            </a>
-            <a href="https://discord.com/users/strangexyzz" target="_blank" className="hover:text-purple-400 transition-transform hover:scale-110">
-              <FaDiscord size={24} />
-            </a>
+        <motion.a
+          href="/connect"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="inline-block mt-10 px-10 py-4 rounded-full bg-lime-400 text-black font-semibold text-lg shadow-[0_0_40px_rgba(34,197,94,0.4)] hover:shadow-[0_0_60px_rgba(34,197,94,0.7)] transition"
+        >
+          Start a Project
+        </motion.a>
+      </motion.div>
+
+      {/* ================= GLASS FOOTER GRID ================= */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pb-20">
+        <div className="grid md:grid-cols-3 gap-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10 shadow-[0_0_60px_rgba(34,197,94,0.05)]">
+
+          {/* BRAND */}
+          <div>
+            <h3 className="text-2xl font-bold text-lime-400">StrangeFx</h3>
+            <p className="mt-4 text-white/60 leading-relaxed">
+              Crafting visuals that inspire, websites that convert,
+              and edits that leave a lasting impact.
+            </p>
           </div>
-          <a href="https://discord.gg/your-server-link" target="_blank" className="block text-xs sm:text-sm text-gray-400 hover:text-purple-400 transition mt-1">
-            Server: Strange Zone
-          </a>
-        </div>
-      </motion.div>
 
-      {/* Bottom Copyright */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-        className="mt-10 sm:mt-12 border-t border-gray-700 pt-4 sm:pt-6 text-center text-gray-400 text-xs sm:text-sm relative z-20"
-      >
-        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-2 md:gap-4 max-w-6xl mx-auto pb-4">
-          <span>
-            <a href="mailto:abdulxhadi7@gmail.com" className="hover:text-lime-400 transition">
-              abdulxhadi7@gmail.com
-            </a>
-          </span>
-          <p>© {new Date().getFullYear()} StrangeFx · All Rights Reserved.</p>
-          <span>
-            Phone:{" "}
-            <a href="tel:+917389110335" className="hover:text-lime-400 transition">
-              +91 7389110335
-            </a>
-          </span>
+          {/* CONTACT */}
+          <div>
+            <h3 className="text-xl font-semibold mb-6 text-lime-400">
+              Contact
+            </h3>
+
+            <div className="flex flex-col gap-4">
+              <a
+                href="https://wa.me/917389110335"
+                target="_blank"
+                className="flex items-center gap-3 px-5 py-3 rounded-xl bg-lime-400 text-black font-medium hover:scale-105 transition"
+              >
+                <FaWhatsapp /> WhatsApp
+              </a>
+
+              <a
+                href="mailto:abdulxhadi7@gmail.com"
+                className="flex items-center gap-3 px-5 py-3 rounded-xl bg-white/10 border border-white/10 hover:bg-white/20 transition"
+              >
+                <FaEnvelope /> Email
+              </a>
+            </div>
+          </div>
+
+          {/* SOCIAL */}
+          <div>
+            <h3 className="text-xl font-semibold mb-6 text-lime-400">
+              Follow Me
+            </h3>
+
+            <div className="flex gap-6 text-2xl">
+              <motion.a
+                whileHover={{ scale: 1.2, rotate: 8 }}
+                href="https://instagram.com/strangefx"
+                target="_blank"
+                className="hover:text-pink-500 transition"
+              >
+                <FaInstagram />
+              </motion.a>
+
+              <motion.a
+                whileHover={{ scale: 1.2, rotate: -8 }}
+                href="https://twitter.com/strangefx"
+                target="_blank"
+                className="hover:text-sky-400 transition"
+              >
+                <FaTwitter />
+              </motion.a>
+
+              <motion.a
+                whileHover={{ scale: 1.2, rotate: 8 }}
+                href="https://discord.com/users/strangexyzz"
+                target="_blank"
+                className="hover:text-purple-400 transition"
+              >
+                <FaDiscord />
+              </motion.a>
+            </div>
+
+            <p className="mt-6 text-sm text-white/40">
+              Join the community · Strange Zone
+            </p>
+          </div>
         </div>
-      </motion.div>
+
+        {/* ================= COPYRIGHT ================= */}
+        <div className="mt-12 border-t border-white/10 pt-6 text-center text-white/40 text-sm">
+          © {new Date().getFullYear()} StrangeFx · All Rights Reserved.
+        </div>
+      </div>
     </footer>
   );
 }

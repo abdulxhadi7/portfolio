@@ -1,141 +1,225 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Plus } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { Palette, Video, Code, Megaphone } from "lucide-react";
+import type { ReactNode } from "react";
 
-export default function Home() {
+type ServiceKey =
+  | "Graphic Design"
+  | "Video Editing"
+  | "Shorts & Reels"
+  | "Web Development"
+  | "3D Motion"
+  | "Digital Marketing";
+
+const services: Record<ServiceKey, string> = {
+  "Graphic Design":
+    "Branding, logos and visual identities designed to stand out.",
+  "Video Editing":
+    "Cinematic edits, reels and storytelling that capture attention.",
+  "Shorts & Reels":
+    "High-performing vertical content optimized for social platforms.",
+  "Web Development":
+    "Modern, fast and scalable websites built to perform.",
+  "3D Motion":
+    "Dynamic 3D visuals and motion graphics that elevate brands.",
+  "Digital Marketing":
+    "Strategies that grow reach, engagement and conversions.",
+};
+
+export default function Hero() {
+  const [activeService, setActiveService] = useState<ServiceKey | null>(null);
+
   return (
-    <section className="relative h-screen w-full flex flex-col md:flex-row items-center justify-between text-white overflow-hidden bg-black">
-      {/* === Background === */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(125% 125% at 50% 10%, #000000 40%, #072607 100%)",
-        }}
-      />
+    <section className="pt-20 relative min-h-screen w-full overflow-hidden bg-black text-white flex items-center">
 
-      {/* === Floating Buttons === */}
-      <motion.button
-        whileHover={{ scale: 1.2, rotate: 10 }}
-        whileTap={{ scale: 0.9 }}
-        animate={{ y: [0, -12, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden sm:flex absolute top-1/3 right-8 md:right-40 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-lime-500 text-black shadow-lg items-center justify-center pointer-events-none"
-      >
-        <Plus size={22} />
-      </motion.button>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 grid lg:grid-cols-2 gap-20 items-center">
 
-      <motion.button
-        whileHover={{ scale: 1.2, rotate: -10 }}
-        whileTap={{ scale: 0.9 }}
-        animate={{ y: [0, -12, 0] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden sm:flex absolute top-1/2 right-6 md:right-28 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-lime-400 text-black shadow-lg items-center justify-center pointer-events-none"
-      >
-        <Plus size={22} />
-      </motion.button>
-
-      <motion.button
-        whileHover={{ scale: 1.2, rotate: 15 }}
-        whileTap={{ scale: 0.9 }}
-        animate={{ y: [0, -12, 0] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden sm:flex absolute bottom-1/3 right-10 md:right-36 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-600 text-white shadow-lg items-center justify-center pointer-events-none"
-      >
-        <Plus size={22} />
-      </motion.button>
-
-      {/* === Left Section === */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1 }}
-        className="flex-1 px-6 md:px-16 space-y-6 relative z-10 text-center md:text-left"
-      >
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight uppercase">
-          <span className="text-lime-400">BRING</span> <br />
-          IDEAS TO LIFE <br />
-          <span className="text-lime-400">THROUGH</span> DESIGNS
-        </h1>
-
-        <p className="text-base sm:text-lg text-gray-300 max-w-md mx-auto md:mx-0">
-          Crafting visuals that inspire, stories that connect, and designs that last.
-        </p>
-
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className="px-5 py-3 bg-lime-400 text-black font-semibold rounded-lg shadow-lg hover:bg-lime-500 transition"
-        >
-          See My Work
-        </motion.button>
-
-        <p className="text-xs sm:text-sm text-gray-500 pt-4">
-          Design that speaks, edits that move.
-        </p>
-      </motion.div>
-
-      {/* === Right Section === */}
-      <motion.div
-        initial={{ opacity: 0, x: 80 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1 }}
-        className="flex-1 relative flex items-center justify-center z-10"
-      >
-        {/* === Main Image Card === */}
+        {/* LEFT SIDE */}
         <motion.div
-          whileHover={{ scale: 1.05, rotate: 2 }}
-          transition={{ type: "spring", stiffness: 200 }}
-          className="w-56 h-72 sm:w-64 sm:h-80 md:w-80 md:h-[28rem] rounded-[2rem] bg-gradient-to-b from-lime-500 to-green-900 shadow-2xl overflow-hidden flex items-center justify-center"
-        >
-          <Image
-            src="/images/f2.jpeg"
-            alt="Main Product"
-            width={520}
-            height={400}
-            className="object-cover w-full h-full"
-          />
-        </motion.div>
-
-        {/* === Floating Boxes === */}
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute -top-8 right-4 sm:right-8 flex gap-4 sm:gap-6"
+          transition={{ duration: 0.9 }}
+          className="text-center lg:text-left"
         >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            whileHover={{ scale: 1.1, rotate: -3 }}
-            className="w-14 h-24 sm:w-16 sm:h-28 md:w-20 md:h-32 rounded-2xl bg-gradient-to-b from-lime-400 to-green-700 shadow-lg"
-          />
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-            whileHover={{ scale: 1.1, rotate: 3 }}
-            className="w-14 h-24 sm:w-16 sm:h-28 md:w-20 md:h-32 rounded-2xl bg-gradient-to-b from-lime-500 to-green-800 shadow-lg"
-          />
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05]">
+            Turning ideas
+            <br />
+            into
+            <span className="text-lime-400"> digital impact.</span>
+          </h1>
+
+          <p className="mt-8 text-white/60 text-lg max-w-xl mx-auto lg:mx-0">
+            Graphic design, cinematic video editing, modern websites and
+            digital marketing — crafted to convert.
+          </p>
+
+          {/* BUTTONS */}
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <Link href="/#services">
+              <button className="px-8 py-4 rounded-full bg-lime-400 text-black font-medium text-lg hover:scale-105 transition">
+                View Work
+              </button>
+            </Link>
+
+            <Link href="/connect">
+              <button className="px-8 py-4 rounded-full border border-white/20 text-white/80 hover:bg-white/10 transition">
+                Start a Project
+              </button>
+            </Link>
+          </div>
+
+          {/* SERVICE PILLS */}
+          <div className="mt-12 flex flex-wrap gap-3 justify-center lg:justify-start text-sm">
+            {(Object.keys(services) as ServiceKey[]).map((s) => (
+              <button
+                key={s}
+                onClick={() => setActiveService(s)}
+                className="px-4 py-2 rounded-full 
+                  bg-white/5 border border-white/10 text-white/60
+                  hover:bg-lime-400/20 hover:text-lime-300
+                  transition"
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+
+          {/* INLINE POPUP (NOT FULL SCREEN) */}
+          {activeService && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-6 max-w-md rounded-2xl bg-black border border-white/10 p-6"
+            >
+              <h3 className="text-lime-400 text-lg font-semibold">
+                {activeService}
+              </h3>
+              <p className="text-white/70 text-sm mt-2">
+                {services[activeService]}
+              </p>
+
+              <div className="mt-4 flex justify-end gap-3">
+                <button
+                  onClick={() => setActiveService(null)}
+                  className="text-white/50 hover:text-white text-sm"
+                >
+                  Close
+                </button>
+
+                <Link href="/#work">
+                  <button className="px-4 py-2 rounded-full bg-lime-400 text-black text-sm">
+                    Explore More
+                  </button>
+                </Link>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
 
-        {/* === Bottom Text === */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="absolute bottom-6 right-4 sm:bottom-8 sm:right-6 text-right"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight uppercase">
-            <span className="text-lime-400 text-lg sm:text-xl md:text-4xl">
-              YOUR VISION
-            </span>
-            <br /> MY CREATION
-          </h2>
+        {/* RIGHT SIDE */}
+        <motion.div className="relative flex justify-center">
+
+          <motion.div
+            whileHover={{ scale: 1.04 }}
+            className="relative w-[320px] h-[460px] rounded-[3rem] overflow-hidden border border-white/10"
+          >
+            <Image
+              src="/images/f2.jpeg"
+              alt="Creative Visual"
+              fill
+              className="object-cover"
+              priority
+            />
+          </motion.div>
+
+          {/* FLOATING CARDS */}
+          <div className="absolute -top-8 right-4 flex gap-4">
+            <FloatingCard
+              icon={<Code size={20} />}
+              title="Web Development"
+              desc="Modern scalable websites."
+            />
+            <FloatingCard
+              icon={<Megaphone size={20} />}
+              title="Digital Marketing"
+              desc="Growth strategies that convert."
+              dark
+            />
+          </div>
+
+          <div className="absolute -left-10 top-20">
+            <FloatingCard
+              icon={<Palette size={22} />}
+              title="Graphic Design"
+              desc="Visual identities that stand out."
+            />
+          </div>
+
+          <div className="absolute -right-10 bottom-20">
+            <FloatingCard
+              icon={<Video size={22} />}
+              title="Video Editing"
+              desc="Cinematic edits & reels."
+              dark
+              align="right"
+            />
+          </div>
+
+          {/* YOUR VISION TEXT */}
+          <div className="absolute -bottom-6 right-4 text-right">
+            <h2 className="text-3xl font-extrabold uppercase leading-tight">
+              <span className="text-lime-500">YOUR VISION</span>
+              <br />
+              MY CREATION
+            </h2>
+          </div>
+
         </motion.div>
-      </motion.div>
+      </div>
     </section>
+  );
+}
+
+/* ================= FLOATING CARD ================= */
+
+interface FloatingCardProps {
+  icon: ReactNode;
+  title: string;
+  desc: string;
+  dark?: boolean;
+  align?: "left" | "right";
+}
+
+function FloatingCard({
+  icon,
+  title,
+  desc,
+  dark = false,
+  align = "left",
+}: FloatingCardProps) {
+  return (
+    <motion.div
+      animate={{ y: [0, -15, 0] }}
+      transition={{ duration: 6, repeat: Infinity }}
+      className={`group relative w-20 h-36 rounded-2xl 
+        ${dark ? "bg-gradient-to-b from-green-500 to-green-900" : "bg-gradient-to-b from-lime-400 to-green-700"}
+        flex items-center justify-center cursor-pointer`}
+    >
+      {icon}
+
+      <div
+        className={`absolute ${
+          align === "right" ? "right-24 text-right" : "left-24"
+        } w-56 p-4 rounded-xl bg-black/90 border border-white/10
+        opacity-0 group-hover:opacity-100 transition`}
+      >
+        <h3 className="text-lime-400 text-sm font-semibold">{title}</h3>
+        <p className="text-white/60 text-xs mt-1">{desc}</p>
+      </div>
+    </motion.div>
   );
 }

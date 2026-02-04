@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, easeOut } from "framer-motion";
-import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Play } from "lucide-react";
+import { Play, X, ChevronUp, ChevronDown } from "lucide-react";
 
 export default function ThumbnailGrid() {
   const router = useRouter();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const shorts = [
     "https://www.youtube.com/shorts/0VXu3LmnZhI",
@@ -54,54 +55,37 @@ export default function ThumbnailGrid() {
     "https://www.youtube.com/shorts/2_WKmNVfQN8",
     "https://www.youtube.com/shorts/c54BGY-zsPE",
     "https://www.youtube.com/shorts/G7hrrmvtFxE",
-    
   ];
 
-  // Extract clean Shorts ID
-  const getThumb = (url: string) => {
-    let id = "";
-    if (url.includes("/shorts/")) {
-      id = url.split("/shorts/")[1].split("?")[0];
-    }
-    return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  const getVideoId = (url: string) =>
+    url.split("/shorts/")[1]?.split("?")[0] ?? "";
+
+  const getThumb = (url: string) =>
+    `https://img.youtube.com/vi/${getVideoId(url)}/hqdefault.jpg`;
+
+  const nextVideo = () => {
+    if (activeIndex === null) return;
+    setActiveIndex((prev) =>
+      prev! + 1 < shorts.length ? prev! + 1 : 0
+    );
   };
 
-  const fadeZoomVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 40 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { delay: i * 0.05, duration: 0.6, ease: easeOut },
-    }),
+  const prevVideo = () => {
+    if (activeIndex === null) return;
+    setActiveIndex((prev) =>
+      prev! - 1 >= 0 ? prev! - 1 : shorts.length - 1
+    );
   };
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-b from-black via-green-900/45 to-black text-white px-4 sm:px-8 md:px-12 py-16 overflow-hidden">
-      <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,rgba(34,197,94,0.15),transparent_70%)] pointer-events-none" />
+    <section className="relative min-h-screen bg-gradient-to-b from-black via-green-900/40 to-black text-white px-6 py-16 overflow-hidden">
 
-      {/* Title */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: easeOut }}
-        className="max-w-2xl mx-auto text-center mb-16 relative z-10"
-      >
-        <span className="text-green-400 font-semibold tracking-[0.15em] uppercase">
-          Showcase
-        </span>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mt-3 mb-6 bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent">
-          Our Creative Works
-        </h2>
-        <p className="text-gray-300 text-lg sm:text-xl leading-relaxed">
-          Dive into our world of design and innovation — each piece tells a story of creativity and passion.
-        </p>
-      </motion.div>
+      {/* Soft Green Glow Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.15),transparent_70%)] pointer-events-none" />
 
-      {/* Grid */}
+      {/* GRID */}
       <div
-        className="grid gap-5 sm:gap-7 md:gap-8 relative z-10"
+        className="relative z-10 grid gap-6"
         style={{
           gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
         }}
@@ -109,47 +93,89 @@ export default function ThumbnailGrid() {
         {shorts.map((url, i) => (
           <motion.div
             key={i}
-            className="
-              group relative rounded-3xl overflow-hidden shadow-lg 
-              shadow-green-900/20 cursor-pointer bg-gray-900 
-              aspect-[9/16]                      /* ⭐ TRUE SHORTS RATIO */
-            "
-            variants={fadeZoomVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            custom={i}
-            whileHover={{ scale: 1.03, rotate: 0.3 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            onClick={() => router.push(url)}
+            className="group relative rounded-3xl overflow-hidden cursor-pointer bg-gray-900/70 backdrop-blur-md border border-green-800/30 shadow-lg shadow-green-900/30 aspect-[9/16]"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 250 }}
+            onClick={() => setActiveIndex(i)}
           >
-            {/* Thumbnail */}
             <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out 
-                group-hover:scale-110 group-hover:brightness-110"
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
               style={{ backgroundImage: `url(${getThumb(url)})` }}
             />
-
-            {/* Hover Overlay */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-              <div className="flex flex-col items-center">
-                <Play
-                  size={50}
-                  className="text-white group-hover:text-green-400 transition"
-                />
-                <p className="text-sm mt-3 text-gray-200">Watch Now</p>
-              </div>
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+              <Play size={50} className="text-white group-hover:text-green-400" />
             </div>
           </motion.div>
         ))}
       </div>
 
-      {/* Go Back Button */}
+      {/* MODAL PLAYER */}
+      <AnimatePresence>
+        {activeIndex !== null && (
+          <motion.div
+            className="fixed inset-0 bg-gradient-to-b from-black via-green-950/90 to-black z-50 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="relative w-full max-w-md aspect-[9/16]">
+
+              {/* Close */}
+              <button
+                onClick={() => setActiveIndex(null)}
+                className="absolute top-4 right-4 z-50 bg-black/60 p-2 rounded-full border border-green-700"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Swipe Container */}
+              <motion.div
+                key={activeIndex}
+                className="w-full h-full"
+                drag="y"
+                dragConstraints={{ top: 0, bottom: 0 }}
+                onDragEnd={(e, info) => {
+                  if (info.offset.y < -100) nextVideo();
+                  if (info.offset.y > 100) prevVideo();
+                }}
+                initial={{ y: 300, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -300, opacity: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <iframe
+                  className="w-full h-full rounded-2xl shadow-2xl shadow-green-900/50"
+                  src={`https://www.youtube.com/embed/${getVideoId(
+                    shorts[activeIndex]
+                  )}?autoplay=1&rel=0`}
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                />
+              </motion.div>
+
+              {/* Arrows */}
+              <button
+                onClick={prevVideo}
+                className="absolute left-1/2 -translate-x-1/2 top-4 bg-black/60 p-2 rounded-full border border-green-700"
+              >
+                <ChevronUp size={24} />
+              </button>
+
+              <button
+                onClick={nextVideo}
+                className="absolute left-1/2 -translate-x-1/2 bottom-4 bg-black/60 p-2 rounded-full border border-green-700"
+              >
+                <ChevronDown size={24} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Go Back */}
       <button
         onClick={() => router.push("/#work")}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600/90 
-        hover:bg-green-500 rounded-2xl font-medium text-white transition-all 
-        duration-300 hover:scale-105 z-50 shadow-lg"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600/90 hover:bg-green-500 rounded-2xl font-medium transition z-40 shadow-lg shadow-green-900/40"
       >
         Go Back
       </button>

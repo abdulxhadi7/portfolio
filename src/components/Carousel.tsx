@@ -89,10 +89,10 @@ export default function AboutPage() {
             {/* Socials */}
             <div className="mt-8 flex items-center gap-4">
               <a href="#work" className="text-neutral-300 hover:text-lime-400">View Work →</a>
-              <a href="https://github.com/" className="flex items-center gap-2 text-neutral-300 hover:text-lime-400" aria-label="Github">
+              <a href="https://github.com/abdulxhadi7" className="flex items-center gap-2 text-neutral-300 hover:text-lime-400" aria-label="Github">
                 <Github size={18} /> <span className="text-sm">Github</span>
               </a>
-              <a href="https://linkedin.com/" className="flex items-center gap-2 text-neutral-300 hover:text-lime-400" aria-label="LinkedIn">
+              <a href="https://ae.linkedin.com/in/abdul-hadi-ahmed-khan-6073392b1" className="flex items-center gap-2 text-neutral-300 hover:text-lime-400" aria-label="LinkedIn">
                 <Linkedin size={18} /> <span className="text-sm">LinkedIn</span>
               </a>
             </div>
