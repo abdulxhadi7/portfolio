@@ -150,7 +150,7 @@ export default function ServicesSection() {
                       transition={{ duration: 0.3 }}
                       className="mt-6 flex items-center gap-2 px-7 py-3
                         bg-white text-black font-bold rounded-md
-                        hover:scale-105 transition"
+                        hover:scale-105 transition hover:bg-green-600 hover:text-white"
                     >
                       Explore <ArrowRight size={18} />
                     </motion.button>

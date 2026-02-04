@@ -3,13 +3,32 @@
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Play, X, ChevronUp, ChevronDown } from "lucide-react";
+import { Play, X } from "lucide-react";
 
-export default function ThumbnailGrid() {
+/* -------------------- TYPES -------------------- */
+
+interface Folder {
+  name: string;
+  description: string;
+  thumbnail: string;
+  links: string[];
+}
+
+interface ActiveVideo {
+  links: string[];
+  index: number;
+}
+
+/* -------------------- PAGE -------------------- */
+
+export default function ShortsPage() {
   const router = useRouter();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [selectedFolder, setSelectedFolder] = useState<Folder | null>(null);
+  const [activeVideo, setActiveVideo] = useState<ActiveVideo | null>(null);
 
-  const shorts = [
+  /* -------------------- ALL GAMING LINKS -------------------- */
+
+  const gamingLinks: string[] = [
     "https://www.youtube.com/shorts/0VXu3LmnZhI",
     "https://www.youtube.com/shorts/z36VRSZn4A8",
     "https://www.youtube.com/shorts/DBI-N1apryI",
@@ -57,125 +76,168 @@ export default function ThumbnailGrid() {
     "https://www.youtube.com/shorts/G7hrrmvtFxE",
   ];
 
+  /* -------------------- FOLDERS -------------------- */
+
+  const folders: Folder[] = [
+    {
+      name: "Gaming",
+      description: "High energy gaming edits and shorts.",
+      thumbnail: "https://img.youtube.com/vi/0VXu3LmnZhI/hqdefault.jpg",
+      links: gamingLinks,
+    },
+    {
+      name: "Informative",
+      description: "Educational & knowledge based content.",
+      thumbnail: "/thumbnails/informative.jpg",
+      links: [],
+    },
+    {
+      name: "Real Estate",
+      description: "Property showcases and walkthrough edits.",
+      thumbnail: "/thumbnails/realestate.jpg",
+      links: [],
+    },
+    {
+      name: "Talking Head",
+      description: "Facecam & personal branding edits.",
+      thumbnail: "/thumbnails/talking.jpg",
+      links: [],
+    },
+    {
+      name: "Educational",
+      description: "Learning focused visual content.",
+      thumbnail: "/thumbnails/education.jpg",
+      links: [],
+    },
+    {
+      name: "Others",
+      description: "Creative experimental edits.",
+      thumbnail: "/thumbnails/others.jpg",
+      links: [],
+    },
+  ];
+
   const getVideoId = (url: string) =>
     url.split("/shorts/")[1]?.split("?")[0] ?? "";
 
-  const getThumb = (url: string) =>
-    `https://img.youtube.com/vi/${getVideoId(url)}/hqdefault.jpg`;
-
-  const nextVideo = () => {
-    if (activeIndex === null) return;
-    setActiveIndex((prev) =>
-      prev! + 1 < shorts.length ? prev! + 1 : 0
-    );
-  };
-
-  const prevVideo = () => {
-    if (activeIndex === null) return;
-    setActiveIndex((prev) =>
-      prev! - 1 >= 0 ? prev! - 1 : shorts.length - 1
-    );
-  };
+  /* -------------------- UI -------------------- */
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-b from-black via-green-900/40 to-black text-white px-6 py-16 overflow-hidden">
+    <section className="min-h-screen bg-black text-white px-6 py-20">
 
-      {/* Soft Green Glow Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.15),transparent_70%)] pointer-events-none" />
+      {/* Heading */}
+      <div className="text-center mb-14">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          Short Form Portfolio
+        </h1>
+        <p className="text-gray-400 max-w-2xl mx-auto">
+          Explore categorized short-form edits crafted for different industries.
+        </p>
+      </div>
 
-      {/* GRID */}
-      <div
-        className="relative z-10 grid gap-6"
-        style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
-        }}
-      >
-        {shorts.map((url, i) => (
+      {/* 3x2 GRID */}
+      <div className="grid md:grid-cols-3 gap-8">
+        {folders.map((folder) => (
           <motion.div
-            key={i}
-            className="group relative rounded-3xl overflow-hidden cursor-pointer bg-gray-900/70 backdrop-blur-md border border-green-800/30 shadow-lg shadow-green-900/30 aspect-[9/16]"
+            key={folder.name}
             whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 250 }}
-            onClick={() => setActiveIndex(i)}
+            onClick={() => setSelectedFolder(folder)}
+            className="cursor-pointer rounded-3xl overflow-hidden bg-neutral-900 border border-neutral-800 shadow-xl"
           >
             <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-              style={{ backgroundImage: `url(${getThumb(url)})` }}
+              className="h-48 bg-cover bg-center"
+              style={{ backgroundImage: `url(${folder.thumbnail})` }}
             />
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-              <Play size={50} className="text-white group-hover:text-green-400" />
+            <div className="p-6">
+              <h3 className="text-xl font-semibold mb-2">
+                {folder.name}
+              </h3>
+              <p className="text-sm text-gray-400 mb-3">
+                {folder.description}
+              </p>
+              <span className="text-xs bg-green-600 px-3 py-1 rounded-full">
+                {folder.links.length} Videos
+              </span>
             </div>
           </motion.div>
         ))}
       </div>
 
-      {/* MODAL PLAYER */}
+      {/* VIDEO MODAL */}
       <AnimatePresence>
-        {activeIndex !== null && (
+        {activeVideo && (
           <motion.div
-            className="fixed inset-0 bg-gradient-to-b from-black via-green-950/90 to-black z-50 flex items-center justify-center"
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <div className="relative w-full max-w-md aspect-[9/16]">
-
-              {/* Close */}
               <button
-                onClick={() => setActiveIndex(null)}
-                className="absolute top-4 right-4 z-50 bg-black/60 p-2 rounded-full border border-green-700"
+                onClick={() => setActiveVideo(null)}
+                className="absolute top-4 right-4 z-50 bg-black/60 p-2 rounded-full"
               >
                 <X size={20} />
               </button>
 
-              {/* Swipe Container */}
-              <motion.div
-                key={activeIndex}
-                className="w-full h-full"
-                drag="y"
-                dragConstraints={{ top: 0, bottom: 0 }}
-                onDragEnd={(e, info) => {
-                  if (info.offset.y < -100) nextVideo();
-                  if (info.offset.y > 100) prevVideo();
-                }}
-                initial={{ y: 300, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -300, opacity: 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                <iframe
-                  className="w-full h-full rounded-2xl shadow-2xl shadow-green-900/50"
-                  src={`https://www.youtube.com/embed/${getVideoId(
-                    shorts[activeIndex]
-                  )}?autoplay=1&rel=0`}
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
-                />
-              </motion.div>
-
-              {/* Arrows */}
-              <button
-                onClick={prevVideo}
-                className="absolute left-1/2 -translate-x-1/2 top-4 bg-black/60 p-2 rounded-full border border-green-700"
-              >
-                <ChevronUp size={24} />
-              </button>
-
-              <button
-                onClick={nextVideo}
-                className="absolute left-1/2 -translate-x-1/2 bottom-4 bg-black/60 p-2 rounded-full border border-green-700"
-              >
-                <ChevronDown size={24} />
-              </button>
+              <iframe
+                className="w-full h-full rounded-2xl"
+                src={`https://www.youtube.com/embed/${getVideoId(
+                  activeVideo.links[activeVideo.index]
+                )}?autoplay=1`}
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Go Back */}
+     {/* FOLDER VIDEO VIEW */}
+<AnimatePresence>
+  {selectedFolder && (
+    <motion.div
+      className="fixed inset-0 bg-black z-40 overflow-y-auto p-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* Floating Back Button */}
+      <button
+        onClick={() => setSelectedFolder(null)}
+        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-green-600 hover:bg-green-500 rounded-2xl font-medium shadow-lg"
+      >
+        ← Back to Categories
+      </button>
+
+      <h2 className="text-3xl font-bold mt-20 mb-8 text-center">
+        {selectedFolder.name}
+      </h2>
+
+      {/* Responsive Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-6">
+        {selectedFolder.links.map((url, i) => (
+          <div
+            key={i}
+            onClick={() =>
+              setActiveVideo({ links: selectedFolder.links, index: i })
+            }
+            className="cursor-pointer aspect-[9/16] bg-cover bg-center rounded-2xl"
+            style={{
+              backgroundImage: `url(https://img.youtube.com/vi/${getVideoId(
+                url
+              )}/hqdefault.jpg)`,
+            }}
+          />
+        ))}
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+      {/* BACK BUTTON */}
       <button
         onClick={() => router.push("/#work")}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600/90 hover:bg-green-500 rounded-2xl font-medium transition z-40 shadow-lg shadow-green-900/40"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600 hover:bg-green-500 rounded-2xl font-medium shadow-lg"
       >
         Go Back
       </button>
