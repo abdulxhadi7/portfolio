@@ -193,11 +193,11 @@ export default function ShortsPage() {
         )}
       </AnimatePresence>
 
-     {/* FOLDER VIDEO VIEW */}
+    {/* FOLDER VIDEO VIEW */}
 <AnimatePresence>
   {selectedFolder && (
     <motion.div
-      className="fixed inset-0 bg-black z-40 overflow-y-auto p-10"
+      className="fixed inset-0 bg-black z-40 overflow-y-auto p-6 sm:p-10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -215,20 +215,24 @@ export default function ShortsPage() {
       </h2>
 
       {/* Responsive Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-6">
+      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
         {selectedFolder.links.map((url, i) => (
           <div
             key={i}
             onClick={() =>
               setActiveVideo({ links: selectedFolder.links, index: i })
             }
-            className="cursor-pointer aspect-[9/16] bg-cover bg-center rounded-2xl"
-            style={{
-              backgroundImage: `url(https://img.youtube.com/vi/${getVideoId(
-                url
-              )}/hqdefault.jpg)`,
-            }}
-          />
+            className="cursor-pointer w-full rounded-2xl overflow-hidden"
+          >
+            <div
+              className="w-full aspect-[3/4] bg-cover bg-center rounded-2xl"
+              style={{
+                backgroundImage: `url(https://img.youtube.com/vi/${getVideoId(
+                  url
+                )}/hqdefault.jpg)`,
+              }}
+            />
+          </div>
         ))}
       </div>
     </motion.div>
