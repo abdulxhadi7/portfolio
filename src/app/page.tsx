@@ -14,14 +14,32 @@ import ServicesAccordion from "@/components/ScrollAnimation";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // PRELOADER
+  /* ---------------------------------- */
+  /* PRELOADER                          */
+  /* ---------------------------------- */
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 4000);
     return () => clearTimeout(timer);
   }, []);
 
-  // SCROLL TO #work IF RETURNING
+  /* ---------------------------------- */
+  /* MOBILE DETECTION                   */
+  /* ---------------------------------- */
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  /* ---------------------------------- */
+  /* SCROLL TO #work IF RETURNING       */
+  /* ---------------------------------- */
   useEffect(() => {
     if (!loading && window.location.hash === "#work") {
       const el = document.getElementById("work");
@@ -33,16 +51,15 @@ export default function Home() {
     }
   }, [loading]);
 
-  // ---------------------------------------
-  // PARALLAX SETUP
-  // ---------------------------------------
+  /* ---------------------------------- */
+  /* PARALLAX SETUP                     */
+  /* ---------------------------------- */
   const { scrollY } = useScroll();
 
-  // smooth parallax motion
-  const heroY = useTransform(scrollY, [0, 500], [0, -120]);
-  const aboutY = useTransform(scrollY, [200, 900], [0, -100]);
-  const servicesY = useTransform(scrollY, [600, 1400], [0, -90]);
-  const workY = useTransform(scrollY, [1000, 2000], [0, -120]);
+  const heroY = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : -120]);
+  const aboutY = useTransform(scrollY, [200, 900], [0, isMobile ? 0 : -100]);
+  const servicesY = useTransform(scrollY, [600, 1400], [0, isMobile ? 0 : -90]);
+  const workY = useTransform(scrollY, [1000, 2000], [0, isMobile ? 0 : -120]);
 
   if (loading) return <Preloader />;
 
@@ -50,41 +67,33 @@ export default function Home() {
     <main className="flex flex-col min-h-screen bg-black text-white overflow-x-hidden">
       <Navbar />
 
-      {/* HERO (Parallax) */}
-      <motion.section
-        id="hero"
-        style={{ y: heroY }}
-        className="w-full h-screen overflow-hidden"
-      >
-        <Hero />
-      </motion.section>
+      {/* HERO */}
+      <section id="hero" className="w-full min-h-screen overflow-hidden">
+        <motion.div style={{ y: heroY }}>
+          <Hero />
+        </motion.div>
+      </section>
 
-      {/* ABOUT (Parallax) */}
-      <motion.section
-        id="about"
-        style={{ y: aboutY }}
-        className="w-full py-20"
-      >
-        <AboutPage />
-      </motion.section>
+      {/* ABOUT */}
+      <section id="about" className="w-full py-20">
+        <motion.div style={{ y: aboutY }}>
+          <AboutPage />
+        </motion.div>
+      </section>
 
-      {/* SERVICES (Parallax) */}
-      <motion.section
-        id="services"
-        style={{ y: servicesY }}
-        className="w-full py-20"
-      >
-        <ServicesAccordion />
-      </motion.section>
+      {/* SERVICES */}
+      <section id="services" className="w-full py-20">
+        <motion.div style={{ y: servicesY }}>
+          <ServicesAccordion />
+        </motion.div>
+      </section>
 
-      {/* WORK (Parallax) */}
-      <motion.section
-        id="work"
-        style={{ y: workY }}
-        className="w-full py-20"
-      >
-        <WorkCategoriesPage />
-      </motion.section>
+      {/* WORK */}
+      <section id="work" className="w-full py-20">
+        <motion.div style={{ y: workY }}>
+          <WorkCategoriesPage />
+        </motion.div>
+      </section>
 
       <footer id="footer" className="mt-auto w-full">
         <Footer />
