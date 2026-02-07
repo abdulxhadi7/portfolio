@@ -76,6 +76,40 @@ export default function ShortsPage() {
     "https://www.youtube.com/shorts/G7hrrmvtFxE",
   ];
 
+  const informative: string[] = [
+    "https://youtube.com/shorts/4JmmGBfU9mQ?feature=share",
+    "https://youtube.com/shorts/oEiS3ZnR1iE?feature=share",
+    "https://youtube.com/shorts/rdADGxSIsMc?feature=share",
+    "https://youtube.com/shorts/TeRh_GpVAaQ?feature=share",
+    "https://youtube.com/shorts/swvZjsSF-8M?feature=share",
+    "https://youtube.com/shorts/Cz1Mnaq6cDI?feature=share",
+  ];
+
+  const re: string[] = [
+    "https://youtube.com/shorts/rdADGxSIsMc?feature=share",
+    "https://youtube.com/shorts/KdABpsFCzJo?feature=share",
+    "https://youtube.com/shorts/vo5iicTA-vE?feature=share",
+    "https://youtube.com/shorts/swvZjsSF-8M?feature=share",
+
+  ];
+
+  const th: string[] = [
+    "https://youtube.com/shorts/4JmmGBfU9mQ?feature=share",
+    "https://youtube.com/shorts/-KaOisexxlk?feature=share",
+    "https://youtube.com/shorts/Wve4CMaMOs4?feature=share",
+    "https://youtube.com/shorts/oEiS3ZnR1iE?feature=share",
+    "https://youtube.com/shorts/vo5iicTA-vE?feature=share",
+  ];
+
+  const edu: string[] = [
+    "https://youtube.com/shorts/DTE07hNovRE?feature=share",
+    "https://youtube.com/shorts/Fa_mEjtyfXU?feature=share",
+    "https://youtube.com/shorts/MLCz8y-jBio?feature=share",
+  ];
+
+  const others: string[] = [
+    "https://youtube.com/shorts/JjWTVPjnxmo?feature=share",
+  ];
   /* -------------------- FOLDERS -------------------- */
 
   const folders: Folder[] = [
@@ -89,31 +123,31 @@ export default function ShortsPage() {
       name: "Informative",
       description: "Educational & knowledge based content.",
       thumbnail: "/thumbnails/informative.jpg",
-      links: [],
+      links: informative,
     },
     {
       name: "Real Estate",
       description: "Property showcases and walkthrough edits.",
       thumbnail: "/thumbnails/realestate.jpg",
-      links: [],
+      links: re,
     },
     {
       name: "Talking Head",
       description: "Facecam & personal branding edits.",
       thumbnail: "/thumbnails/talking.jpg",
-      links: [],
+      links: th,
     },
     {
       name: "Educational",
       description: "Learning focused visual content.",
       thumbnail: "/thumbnails/education.jpg",
-      links: [],
+      links: edu,
     },
     {
       name: "Others",
       description: "Creative experimental edits.",
       thumbnail: "/thumbnails/others.jpg",
-      links: [],
+      links: others,
     },
   ];
 
