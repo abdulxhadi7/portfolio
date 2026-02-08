@@ -11,21 +11,21 @@ export default function LogoGrid() {
   const router = useRouter();
 
   const images = [
-    "/logos/l2.png",
-    "/logos/l1.png",
-    "/logos/l3.png",
-    "/logos/l4.jpg",
-    "/logos/l5.png",
-    "/logos/l6.png",
-    "/logos/l7.png",
-    "/logos/l8.jpg",
-    "/logos/l9.jpg",
-    "/logos/l10.jpg",
-    "/logos/l11.png",
-    "/logos/l12.png",
-    "/logos/l13.jpg",
-    "/logos/l14.png",
-    "/logos/l15.jpg",
+    "/logos/l2.webp",
+    "/logos/l1.webp",
+    "/logos/l3.webp",
+    "/logos/l4.webp",
+    "/logos/l5.webp",
+    "/logos/l6.webp",
+    "/logos/l7.webp",
+    "/logos/l8.webp",
+    "/logos/l9.webp",
+    "/logos/l10.webp",
+    "/logos/l11.webp",
+    "/log̥os/ii.webp",
+    "/logos/l13.webp",
+    "/logos/l14.webp",
+    "/logos/l15.webp",
   ];
 
   const fadeZoomVariants = {

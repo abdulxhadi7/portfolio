@@ -11,22 +11,22 @@ export default function YouTubeBannerGrid() {
   const router = useRouter();
 
   const images = [
-    "/youtube/b2.png",
-    "/youtube/b1.png",
-    "/youtube/b3.png",
-    "/youtube/b4.png",
-    "/youtube/b5.png",
-    "/youtube/b6.png",
-    "/youtube/b7.png",
-    "/youtube/b8.jpg",
-    "/youtube/b9.png",
-    "/youtube/b10.png",
-    "/youtube/b11.png",
-    "/youtube/b12.png",
-    "/youtube/b13.png",
-    "/youtube/b14.png",
-    "/youtube/b15.jpg",
-    "/youtube/b16.png",
+    "/youtube/b2.webp",
+    "/youtube/b1.webp",
+    "/youtube/b3.webp",
+    "/youtube/b4.webp",
+    "/youtube/b5.webp",
+    "/youtube/b6.webp",
+    "/youtube/b7.webp",
+    "/youtube/b8.webp",
+    "/youtube/b9.webp",
+    "/youtube/b10.webp",
+    "/youtube/b11.webp",
+    "/youtube/b12.webp",
+    "/youtube/b13.webp",
+    "/youtube/b14.webp",
+    "/youtube/b15.webp",
+    "/youtube/b16.webp",
   ];
 
   const fadeZoomVariants = {
