@@ -12,42 +12,42 @@ const services = [
     title: "Thumbnail",
     description:
       "Eye-catching YouTube and social media thumbnails designed to grab instant attention.",
-    img: "/images/thumbnail.jpg",
+    img: "/images/thumbnail.webp",
     href: "/work/thumbnails",
   },
   {
     title: "Logo Artist",
     description:
       "Unique and modern logos crafted to elevate your brand identity.",
-    img: "/images/logo.jpg",
+    img: "/images/logo.webp",
     href: "/work/logos",
   },
   {
     title: "Banners & Posters",
     description:
       "Premium posters and banners that communicate your message visually.",
-    img: "/images/banner.jpg",
+    img: "/images/banner.webp",
     href: "/work/youtube-banners",
   },
   {
     title: "Shorts Editing",
     description:
       "Fast-paced, engaging edits for YouTube Shorts and TikTok.",
-    img: "/images/shorts.jpg",
+    img: "/images/shorts.webp",
     href: "/work/shorts",
   },
   {
     title: "Long Video Editing",
     description:
       "Cinematic long-form editing with clean cuts, pacing, and story flow.",
-    img: "/images/long.jpg",
+    img: "/images/long.webp",
     href: "/work/shorts",
   },
   {
     title: "Reel Editing",
     description:
       "Trendy Instagram Reels that boost reach and engagement.",
-    img: "/images/reels.jpg",
+    img: "/images/reels.webp",
     href: "/work/shorts",
   },
 ];
