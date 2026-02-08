@@ -171,7 +171,7 @@ export default function Hero() {
 
           {/* YOUR VISION TEXT */}
           <div className="absolute -bottom-6 right-4 text-right">
-            <h2 className="text-3xl font-extrabold uppercase leading-tight">
+            <h2 className="text-3xl font-extrabold uppercase leading-tight pb-6">
               <span className="text-lime-500">YOUR VISION</span>
               <br />
               MY CREATION

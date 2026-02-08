@@ -8,20 +8,19 @@ import Hero from "@/components/Hero";
 import AboutPage from "@/components/Carousel";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import Preloader from "@/components/Preloader";
+
 import WorkCategoriesPage from "./work/page";
 import ServicesAccordion from "@/components/ScrollAnimation";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   /* ---------------------------------- */
-  /* PRELOADER                          */
+  /* MOUNT CHECK (SSR SAFETY)           */
   /* ---------------------------------- */
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 4000);
-    return () => clearTimeout(timer);
+    setMounted(true);
   }, []);
 
   /* ---------------------------------- */
@@ -38,10 +37,12 @@ export default function Home() {
   }, []);
 
   /* ---------------------------------- */
-  /* SCROLL TO #work IF RETURNING       */
+  /* SCROLL TO #work IF HASH PRESENT    */
   /* ---------------------------------- */
   useEffect(() => {
-    if (!loading && window.location.hash === "#work") {
+    if (!mounted) return;
+
+    if (window.location.hash === "#work") {
       const el = document.getElementById("work");
       if (el) {
         setTimeout(() => {
@@ -49,7 +50,7 @@ export default function Home() {
         }, 100);
       }
     }
-  }, [loading]);
+  }, [mounted]);
 
   /* ---------------------------------- */
   /* PARALLAX SETUP                     */
@@ -60,8 +61,6 @@ export default function Home() {
   const aboutY = useTransform(scrollY, [200, 900], [0, isMobile ? 0 : -100]);
   const servicesY = useTransform(scrollY, [600, 1400], [0, isMobile ? 0 : -90]);
   const workY = useTransform(scrollY, [1000, 2000], [0, isMobile ? 0 : -120]);
-
-  if (loading) return <Preloader />;
 
   return (
     <main className="flex flex-col min-h-screen bg-black text-white overflow-x-hidden">

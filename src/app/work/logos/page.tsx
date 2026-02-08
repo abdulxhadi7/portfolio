@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, easeOut } from "framer-motion";
+import { motion, easeOut, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
-export default function ThumbnailGrid() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+export default function LogoGrid() {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const router = useRouter();
 
   const images = [
@@ -25,8 +26,6 @@ export default function ThumbnailGrid() {
     "/logos/l13.jpg",
     "/logos/l14.png",
     "/logos/l15.jpg",
-    
-    
   ];
 
   const fadeZoomVariants = {
@@ -35,104 +34,158 @@ export default function ThumbnailGrid() {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { delay: i * 0.05, duration: 0.6, ease: easeOut },
+      transition: { delay: i * 0.04, duration: 0.6, ease: easeOut },
     }),
   };
 
-  return (
-    <section className="relative min-h-screen bg-gradient-to-b from-black via-green-900/45 to-black text-white px-4 sm:px-8 md:px-12 py-16 overflow-hidden">
-      <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,rgba(34,197,94,0.15),transparent_70%)] pointer-events-none" />
+  const next = () =>
+    setSelectedIndex((prev) =>
+      prev === null ? 0 : (prev + 1) % images.length
+    );
 
+  const prev = () =>
+    setSelectedIndex((prev) =>
+      prev === null ? 0 : (prev - 1 + images.length) % images.length
+    );
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (selectedIndex === null) return;
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "Escape") setSelectedIndex(null);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedIndex]);
+
+  return (
+    <section className="relative min-h-screen bg-black text-white px-4 sm:px-8 md:px-12 py-16 overflow-hidden">
+      {/* Ambient Glow */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_20%,rgba(34,197,94,0.15),transparent_45%),radial-gradient(circle_at_80%_70%,rgba(16,185,129,0.12),transparent_45%)]" />
+
+      {/* Floating orbs */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        animate={{ y: [0, -30, 0] }}
+        transition={{ duration: 10, repeat: Infinity }}
+        className="absolute top-20 left-20 w-40 h-40 bg-lime-400/20 blur-3xl rounded-full"
+      />
+      <motion.div
+        animate={{ y: [0, 40, 0] }}
+        transition={{ duration: 12, repeat: Infinity }}
+        className="absolute bottom-24 right-24 w-52 h-52 bg-emerald-400/20 blur-3xl rounded-full"
+      />
+
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: easeOut }}
-        className="max-w-2xl mx-auto text-center mb-16 relative z-10"
+        transition={{ duration: 0.8 }}
+        className="max-w-3xl mx-auto text-center mb-16 relative z-10"
       >
-        <span className="text-green-400 font-semibold tracking-[0.15em] uppercase">
-          Showcase
+        <span className="text-lime-400 tracking-[0.25em] uppercase font-semibold">
+          Brand Identity
         </span>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mt-3 mb-6 bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent">
-          Our Creative Works
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mt-3 mb-6">
+          Logo Designs that <span className="text-lime-400">Speak</span>
         </h2>
-        <p className="text-gray-300 text-lg sm:text-xl leading-relaxed">
-          Dive into our world of design and innovation — each piece tells a story of creativity and passion.
+        <p className="text-white/60 text-lg">
+          Minimal, bold & memorable logos crafted to define brand identity.
         </p>
       </motion.div>
 
-      <div
-        className="grid gap-5 sm:gap-7 md:gap-8 relative z-10"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gridAutoRows: "minmax(220px, auto)" }}
-      >
+      {/* Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-7 relative z-10">
         {images.map((image, i) => (
           <motion.div
             key={i}
-            className="group relative rounded-3xl overflow-hidden shadow-lg shadow-green-900/20 cursor-pointer bg-gradient-to-tr from-gray-800 to-gray-900"
             variants={fadeZoomVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             custom={i}
-            whileHover={{ scale: 1.03, rotate: 0.3 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            onClick={() => setSelectedImage(image)}
+            whileHover={{ scale: 1.05 }}
+            className="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 backdrop-blur-xl shadow-[0_0_30px_rgba(34,197,94,0.15)] cursor-pointer"
+            onClick={() => setSelectedIndex(i)}
           >
-            <Image
-              src={image}
-              alt={`Creative work ${i + 1}`}
-              fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+            <div className="relative aspect-square p-4">
+              <Image
+                src={image}
+                alt="Creative logo"
+                fill
+                className="object-contain transition duration-700 group-hover:scale-110"
+              />
+            </div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h3 className="text-lg font-semibold mb-1">Project {i + 1}</h3>
-                <p className="text-sm text-gray-300">View details</p>
-              </motion.div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+              <div>
+                <h3 className="text-sm font-semibold">Brand Identity</h3>
+                <p className="text-xs text-white/60">Click to preview</p>
+              </div>
             </div>
           </motion.div>
         ))}
       </div>
 
-      {selectedImage && (
-        <motion.div
-          className="fixed inset-0 bg-black/95 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="relative max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={selectedImage}
-              alt="Full view"
-              width={1200}
-              height={800}
-              className="rounded-3xl shadow-2xl object-contain w-full h-auto"
-            />
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 text-white text-4xl font-bold hover:text-green-400 transition"
+      {/* Modal Preview */}
+      <AnimatePresence>
+        {selectedIndex !== null && (
+          <motion.div
+            className="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 flex items-center justify-center px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-4xl w-full bg-white/5 border border-white/10 backdrop-blur-xl rounded-3xl p-6 shadow-[0_0_80px_rgba(34,197,94,0.4)]"
             >
-              ×
-            </button>
-          </div>
-        </motion.div>
-      )}
+              <Image
+                src={images[selectedIndex]}
+                alt="Preview"
+                width={1200}
+                height={900}
+                className="rounded-2xl object-contain w-full"
+              />
 
-      {/* Floating Go Back Button */}
-      <button
+              {/* Controls */}
+              <button
+                onClick={() => setSelectedIndex(null)}
+                className="absolute -top-4 -right-4 bg-lime-400 text-black p-2 rounded-full shadow-lg hover:scale-110 transition"
+              >
+                <X size={22} />
+              </button>
+
+              <button
+                onClick={prev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 backdrop-blur-lg p-3 rounded-full hover:bg-lime-400 hover:text-black transition"
+              >
+                <ChevronLeft size={28} />
+              </button>
+
+              <button
+                onClick={next}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 backdrop-blur-lg p-3 rounded-full hover:bg-lime-400 hover:text-black transition"
+              >
+                <ChevronRight size={28} />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Back Button */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
         onClick={() => router.push("/#work")}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600/90 hover:bg-green-500 rounded-2xl font-medium text-white transition-all duration-300 hover:scale-105 z-50 shadow-lg"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 rounded-full bg-lime-400 text-black font-medium shadow-[0_0_30px_rgba(34,197,94,0.6)] z-50"
       >
         Go Back
-      </button>
+      </motion.button>
     </section>
   );
 }

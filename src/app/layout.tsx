@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import PreloaderWrapper from "@/components/PreloaderWrapper"; // 👈 wrapper for client animation
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +27,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PreloaderWrapper>{children}</PreloaderWrapper>
+        {children}
       </body>
     </html>
   );
