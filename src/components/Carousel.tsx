@@ -111,7 +111,7 @@ export default function AboutPage() {
               className="relative w-72 h-96 sm:w-80 sm:h-[36rem] rounded-[2rem] overflow-hidden shadow-2xl bg-gradient-to-b from-neutral-900/80 to-green-900/30 border border-white/6"
             >
               <Image
-                src="/images/f1.jpeg"
+                src="/images/f1.webp"
                 alt="Portrait"
                 fill
                 className="object-cover"

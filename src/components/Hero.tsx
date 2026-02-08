@@ -128,7 +128,7 @@ export default function Hero() {
             className="relative w-[320px] h-[460px] rounded-[3rem] overflow-hidden border border-white/10"
           >
             <Image
-              src="/images/f2.jpeg"
+              src="/images/f2.webp"
               alt="Creative Visual"
               fill
               className="object-cover"
