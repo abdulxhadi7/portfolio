@@ -131,50 +131,56 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SKILLS / SERVICES */}
+           {/* SKILLS / SERVICES */}
       <section className="pt-12 pb-6">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-3 gap-8 items-start">
-          <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="col-span-1">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="col-span-1"
+          >
             <h3 className="text-xl font-semibold text-lime-400">What I do</h3>
-            <p className="text-neutral-300 mt-3">Design, edit and build — I bring creative & technical skills together to deliver polished work.</p>
+            <p className="text-neutral-300 mt-3">
+              Design, edit and build — I bring creative & technical skills together to deliver polished work.
+            </p>
           </motion.div>
 
-          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               {
                 title: "Graphic Design",
                 list: ["Brand identity", "Posters & Banners", "Thumbnails"],
-                img: "https://images.unsplash.com/photo-1626785774625-ddcddc3445e9?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               },
               {
                 title: "Video Editing",
                 list: ["Social cuts", "Cinematic edits", "Color grading"],
-                img: "https://images.unsplash.com/photo-1574717025058-2f8737d2e2b7?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               },
               {
                 title: "Web / UI",
                 list: ["Landing pages", "Interactive UI", "CMS integrations"],
-                img: "https://images.unsplash.com/photo-1519222970733-f546218fa6d7?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               },
             ].map((s, i) => (
               <motion.div
                 key={i}
-                whileHover={{ translateY: -6, boxShadow: "0 12px 40px rgba(16,185,129,0.12)" }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="rounded-2xl overflow-hidden bg-gradient-to-b from-black/60 to-green-950 border border-white/8"
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 260, damping: 18 }}
+                className="p-6 rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-md hover:border-lime-400/40 hover:shadow-[0_0_30px_rgba(34,197,94,0.12)] transition"
               >
-                <div className="relative h-36">
-                  <Image src={s.img} alt={s.title} fill className="object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                </div>
-                <div className="p-4">
-                  <h4 className="font-semibold text-lg">{s.title}</h4>
-                  <ul className="text-neutral-300 mt-2 text-sm space-y-1">
-                    {s.list.map((li, idx) => (
-                      <li key={idx}>• {li}</li>
-                    ))}
-                  </ul>
-                </div>
+                <h4 className="text-lg font-semibold text-white">
+                  {s.title}
+                </h4>
+
+                <ul className="text-neutral-300 mt-3 text-sm space-y-1">
+                  {s.list.map((li, idx) => (
+                    <li key={idx} className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-lime-400" />
+                      {li}
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             ))}
           </div>
