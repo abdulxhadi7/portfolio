@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { X } from "lucide-react";
+import { Play, X } from "lucide-react";
 
 /* -------------------- TYPES -------------------- */
 
@@ -26,7 +26,7 @@ export default function ShortsPage() {
   const [selectedFolder, setSelectedFolder] = useState<Folder | null>(null);
   const [activeVideo, setActiveVideo] = useState<ActiveVideo | null>(null);
 
-  /* -------------------- ALL LINKS -------------------- */
+  /* -------------------- ALL GAMING LINKS -------------------- */
 
   const gamingLinks: string[] = [
     "https://www.youtube.com/shorts/0VXu3LmnZhI",
@@ -90,6 +90,7 @@ export default function ShortsPage() {
     "https://youtube.com/shorts/KdABpsFCzJo?feature=share",
     "https://youtube.com/shorts/vo5iicTA-vE?feature=share",
     "https://youtube.com/shorts/swvZjsSF-8M?feature=share",
+
   ];
 
   const th: string[] = [
@@ -109,7 +110,6 @@ export default function ShortsPage() {
   const others: string[] = [
     "https://youtube.com/shorts/JjWTVPjnxmo?feature=share",
   ];
-
   /* -------------------- FOLDERS -------------------- */
 
   const folders: Folder[] = [
@@ -154,63 +154,42 @@ export default function ShortsPage() {
   const getVideoId = (url: string) =>
     url.split("/shorts/")[1]?.split("?")[0] ?? "";
 
-  /* -------------------- SWIPE HANDLER -------------------- */
-
-  const handleSwipe = (_: any, info: any) => {
-    if (!activeVideo) return;
-
-    if (info.offset.y < -80 && activeVideo.index < activeVideo.links.length - 1) {
-      setActiveVideo({ ...activeVideo, index: activeVideo.index + 1 });
-    }
-
-    if (info.offset.y > 80 && activeVideo.index > 0) {
-      setActiveVideo({ ...activeVideo, index: activeVideo.index - 1 });
-    }
-  };
-
   /* -------------------- UI -------------------- */
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-black via-neutral-950 to-black text-white px-6 py-20 overflow-hidden">
+    <section className="min-h-screen bg-black text-white px-6 py-20">
 
       {/* Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-16"
-      >
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
+      <div className="text-center mb-14">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
           Short Form Portfolio
         </h1>
-        <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+        <p className="text-gray-400 max-w-2xl mx-auto">
           Explore categorized short-form edits crafted for different industries.
         </p>
-      </motion.div>
+      </div>
 
-      {/* GRID */}
-      <div className="grid md:grid-cols-3 gap-10">
+      {/* 3x2 GRID */}
+      <div className="grid md:grid-cols-3 gap-8">
         {folders.map((folder) => (
           <motion.div
             key={folder.name}
+            whileHover={{ scale: 1.05 }}
             onClick={() => setSelectedFolder(folder)}
-            whileHover={{ scale: 1.05, y: -8 }}
-            whileTap={{ scale: 0.96 }}
-            transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            className="cursor-pointer rounded-3xl overflow-hidden backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.7)]"
+            className="cursor-pointer rounded-3xl overflow-hidden bg-neutral-900 border border-neutral-800 shadow-xl"
           >
             <div
-              className="h-56 bg-cover bg-center"
+              className="h-48 bg-cover bg-center"
               style={{ backgroundImage: `url(${folder.thumbnail})` }}
             />
             <div className="p-6">
-              <h3 className="text-2xl font-semibold mb-2">
+              <h3 className="text-xl font-semibold mb-2">
                 {folder.name}
               </h3>
               <p className="text-sm text-gray-400 mb-3">
                 {folder.description}
               </p>
-              <span className="text-xs bg-green-500/20 text-green-400 px-4 py-1 rounded-full">
+              <span className="text-xs bg-green-600 px-3 py-1 rounded-full">
                 {folder.links.length} Videos
               </span>
             </div>
@@ -218,71 +197,16 @@ export default function ShortsPage() {
         ))}
       </div>
 
-      {/* FOLDER VIEW */}
-      <AnimatePresence>
-        {selectedFolder && (
-          <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.96 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 overflow-y-auto px-6 py-24"
-          >
-            <button
-              onClick={() => setSelectedFolder(null)}
-              className="fixed top-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 hover:bg-white/20 transition"
-            >
-              ← Back
-            </button>
-
-            <h2 className="text-4xl font-bold text-center mb-12">
-              {selectedFolder.name}
-            </h2>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-              {selectedFolder.links.map((url, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.06 }}
-                  whileTap={{ scale: 0.96 }}
-                  onClick={() =>
-                    setActiveVideo({
-                      links: selectedFolder.links,
-                      index: i,
-                    })
-                  }
-                  className="rounded-2xl overflow-hidden cursor-pointer shadow-xl"
-                >
-                  <div
-                    className="aspect-[3/4] bg-cover bg-center"
-                    style={{
-                      backgroundImage: `url(https://img.youtube.com/vi/${getVideoId(
-                        url
-                      )}/hqdefault.jpg)`,
-                    }}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* VIDEO MODAL */}
       <AnimatePresence>
         {activeVideo && (
           <motion.div
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 backdrop-blur-xl z-[100] flex items-center justify-center"
           >
-            <motion.div
-              drag="y"
-              dragConstraints={{ top: 0, bottom: 0 }}
-              onDragEnd={handleSwipe}
-              className="relative w-full max-w-sm aspect-[9/16] rounded-3xl overflow-hidden shadow-[0_0_120px_rgba(0,255,160,0.2)]"
-            >
+            <div className="relative w-full max-w-md aspect-[9/16]">
               <button
                 onClick={() => setActiveVideo(null)}
                 className="absolute top-4 right-4 z-50 bg-black/60 p-2 rounded-full"
@@ -291,24 +215,69 @@ export default function ShortsPage() {
               </button>
 
               <iframe
-                className="w-full h-full"
+                className="w-full h-full rounded-2xl"
                 src={`https://www.youtube.com/embed/${getVideoId(
                   activeVideo.links[activeVideo.index]
-                )}?autoplay=1&rel=0`}
+                )}?autoplay=1`}
                 allow="autoplay; encrypted-media"
                 allowFullScreen
               />
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* GLOBAL BACK */}
+    {/* FOLDER VIDEO VIEW */}
+<AnimatePresence>
+  {selectedFolder && (
+    <motion.div
+      className="fixed inset-0 bg-black z-40 overflow-y-auto p-6 sm:p-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* Floating Back Button */}
+      <button
+        onClick={() => setSelectedFolder(null)}
+        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-green-600 hover:bg-green-500 rounded-2xl font-medium shadow-lg"
+      >
+        ← Back to Categories
+      </button>
+
+      <h2 className="text-3xl font-bold mt-20 mb-8 text-center">
+        {selectedFolder.name}
+      </h2>
+
+      {/* Responsive Grid */}
+      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
+        {selectedFolder.links.map((url, i) => (
+          <div
+            key={i}
+            onClick={() =>
+              setActiveVideo({ links: selectedFolder.links, index: i })
+            }
+            className="cursor-pointer w-full rounded-2xl overflow-hidden"
+          >
+            <div
+              className="w-full aspect-[3/4] bg-cover bg-center rounded-2xl"
+              style={{
+                backgroundImage: `url(https://img.youtube.com/vi/${getVideoId(
+                  url
+                )}/hqdefault.jpg)`,
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+      {/* BACK BUTTON */}
       <button
         onClick={() => router.push("/#work")}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 hover:bg-white/20 transition shadow-lg"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-green-600 hover:bg-green-500 rounded-2xl font-medium shadow-lg"
       >
-        ← Back to Work
+        Go Back
       </button>
     </section>
   );
