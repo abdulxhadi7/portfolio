@@ -15,26 +15,26 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "StrangeFx | Your Vision, My Creation",
+    default: "StrangeFx | Turning ideas into Visuals",
     template: "%s | StrangeFx",
   },
   description:
-    "StrangeFx | Your Vision, My Creation. Creative studio specializing in graphic design, video editing, motion graphics, and modern web development.",
+    "StrangeFx — Your Vision, My Creation. Creative studio specializing in graphic design, video editing, motion graphics, and modern web development.",
 
   metadataBase: new URL("https://strangefx.in"),
 
   openGraph: {
-    title: "StrangeFx — Your Vision, My Creation",
+    title: "StrangeFx | Your Vision, My Creation",
     description:
       "Creative studio specializing in graphic design, video editing, motion graphics, and modern web development.",
     url: "https://strangefx.in",
     siteName: "StrangeFx",
     images: [
       {
-        url: "/og.JPG",
+        url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "StrangeFx — Your Vision, My Creation",
+        alt: "StrangeFx | Your Vision, My Creation",
       },
     ],
     locale: "en_US",
@@ -43,17 +43,22 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "StrangeFx — Your Vision, My Creation",
+    title: "StrangeFx | Your Vision, My Creation",
     description:
       "Creative studio specializing in graphic design, video editing, motion graphics, and modern web development.",
-    images: ["/og.jpg"],
+    images: ["/og.JPG"],
   },
 
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
     apple: "/apple-touch-icon.png",
   },
+
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
