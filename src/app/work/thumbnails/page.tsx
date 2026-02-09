@@ -1,10 +1,15 @@
 "use client";
 
-import { motion, easeOut, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+
+const swipePower = (offset: number, velocity: number) =>
+  Math.abs(offset) * velocity;
+
+const swipeThreshold = 12000;
 
 export default function ThumbnailGrid() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -53,16 +58,6 @@ export default function ThumbnailGrid() {
     "/thumbnails/t40.webp",
   ];
 
-  const fadeZoomVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 40 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { delay: i * 0.04, duration: 0.6, ease: easeOut },
-    }),
-  };
-
   const next = () =>
     setSelectedIndex((prev) =>
       prev === null ? 0 : (prev + 1) % images.length
@@ -73,7 +68,7 @@ export default function ThumbnailGrid() {
       prev === null ? 0 : (prev - 1 + images.length) % images.length
     );
 
-  // Keyboard navigation
+  /* Keyboard nav */
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (selectedIndex === null) return;
@@ -83,6 +78,19 @@ export default function ThumbnailGrid() {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedIndex]);
+
+  /* Preload adjacent images */
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const preload = (src: string) => {
+      const img = new window.Image();
+      img.src = src;
+    };
+
+    preload(images[(selectedIndex + 1) % images.length]);
+    preload(images[(selectedIndex - 1 + images.length) % images.length]);
   }, [selectedIndex]);
 
   return (
@@ -127,12 +135,7 @@ export default function ThumbnailGrid() {
         {images.map((image, i) => (
           <motion.div
             key={i}
-            variants={fadeZoomVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            custom={i}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.06 }}
             className="group relative rounded-2xl overflow-hidden bg-white/5 border border-white/10 backdrop-blur-xl shadow-[0_0_30px_rgba(34,197,94,0.15)] cursor-pointer"
             onClick={() => setSelectedIndex(i)}
           >
@@ -141,66 +144,76 @@ export default function ThumbnailGrid() {
                 src={image}
                 alt="Creative thumbnail"
                 fill
-                className="object-cover transition duration-700 group-hover:scale-110"
+                sizes="(max-width:768px) 50vw, 20vw"
+                className="object-cover transition duration-500 group-hover:scale-110"
               />
-            </div>
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
-              <div>
-                <h3 className="text-sm font-semibold">High CTR Design</h3>
-                <p className="text-xs text-white/60">Click to preview</p>
-              </div>
             </div>
           </motion.div>
         ))}
       </div>
 
-      {/* Modal Preview */}
+      {/* Apple Style Modal */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <motion.div
-            className="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 flex items-center justify-center px-4"
+            className="fixed inset-0 bg-black/95 backdrop-blur-2xl z-50 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative max-w-6xl w-full"
-            >
-              <Image
-                src={images[selectedIndex]}
-                alt="Preview"
-                width={1400}
-                height={900}
-                className="rounded-3xl shadow-[0_0_80px_rgba(34,197,94,0.4)] object-contain w-full"
-              />
+            <div className="relative w-full h-full flex items-center justify-center">
+
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={selectedIndex}
+                  className="absolute w-full flex justify-center px-3"
+                  initial={{ opacity: 0, x: 120 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -120 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 30 }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = swipePower(offset.x, velocity.x);
+
+                    if (swipe < -swipeThreshold) next();
+                    if (swipe > swipeThreshold) prev();
+                  }}
+                >
+                  <Image
+                    src={images[selectedIndex]}
+                    alt="Preview"
+                    width={1600}
+                    height={1000}
+                    priority
+                    className="object-contain max-h-[85vh] w-auto rounded-3xl shadow-[0_0_120px_rgba(34,197,94,0.4)] select-none"
+                  />
+                </motion.div>
+              </AnimatePresence>
 
               {/* Controls */}
               <button
                 onClick={() => setSelectedIndex(null)}
-                className="absolute -top-4 -right-4 bg-lime-400 text-black p-2 rounded-full shadow-lg hover:scale-110 transition"
+                className="absolute top-6 right-6 bg-lime-400 text-black p-3 rounded-full shadow-xl hover:scale-110 transition"
               >
-                <X size={22} />
+                <X size={24} />
               </button>
 
               <button
                 onClick={prev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 backdrop-blur-lg p-3 rounded-full hover:bg-lime-400 hover:text-black transition"
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-3 rounded-full hover:bg-lime-400 hover:text-black transition"
               >
-                <ChevronLeft size={28} />
+                <ChevronLeft size={30} />
               </button>
 
               <button
                 onClick={next}
-                className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 backdrop-blur-lg p-3 rounded-full hover:bg-lime-400 hover:text-black transition"
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 border border-white/20 p-3 rounded-full hover:bg-lime-400 hover:text-black transition"
               >
-                <ChevronRight size={28} />
+                <ChevronRight size={30} />
               </button>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -209,7 +222,7 @@ export default function ThumbnailGrid() {
       <motion.button
         whileHover={{ scale: 1.05 }}
         onClick={() => router.push("/#work")}
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 rounded-full bg-lime-400 text-black font-medium shadow-[0_0_30px_rgba(34,197,94,0.6)] z-50"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 px-8 py-3 rounded-full bg-lime-400 text-black font-medium shadow-[0_0_30px_rgba(34,197,94,0.6)] z-40"
       >
         Go Back
       </motion.button>
