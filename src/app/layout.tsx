@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | StrangeFx",
   },
   description:
-    "StrangeFx — Your Vision, My Creation. Creative studio specializing in graphic design, video editing, motion graphics, and modern web development.",
+    "StrangeFx | Your Vision, My Creation. Creative studio specializing in graphic design, video editing, motion graphics, and modern web development.",
 
   metadataBase: new URL("https://strangefx.in"),
 
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "StrangeFx",
     images: [
       {
-        url: "/og.jpg",
+        url: "/og.JPG",
         width: 1200,
         height: 630,
         alt: "StrangeFx | Your Vision, My Creation",
