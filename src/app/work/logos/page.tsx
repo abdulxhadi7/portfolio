@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -114,12 +113,11 @@ export default function LogoGrid() {
             onClick={() => setSelectedIndex(i)}
           >
             <div className="relative aspect-square p-4">
-              <Image
+              <img
                 src={image}
                 alt="Creative logo"
-                fill
-                sizes="(max-width:768px) 50vw, 20vw"
-                className="object-contain transition duration-500 group-hover:scale-110"
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-contain transition duration-500 group-hover:scale-110"
               />
             </div>
           </motion.div>
@@ -154,12 +152,10 @@ export default function LogoGrid() {
                     if (swipe > swipeThreshold) prev();
                   }}
                 >
-                  <Image
+                  <img
                     src={images[selectedIndex]}
                     alt="Preview"
-                    width={1400}
-                    height={900}
-                    priority
+                    loading="eager"
                     className="object-contain max-h-[85vh] w-auto rounded-3xl shadow-[0_0_100px_rgba(34,197,94,0.35)] select-none"
                   />
                 </motion.div>
