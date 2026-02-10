@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -117,12 +116,11 @@ export default function YouTubeBannerGrid() {
             onClick={() => setSelectedIndex(i)}
           >
             <div className="relative aspect-[16/9]">
-              <Image
+              <img
                 src={image}
                 alt="YouTube banner design"
-                fill
-                sizes="(max-width:768px) 50vw, 20vw"
-                className="object-cover transition duration-500 group-hover:scale-110"
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110"
               />
             </div>
           </motion.div>
@@ -157,12 +155,10 @@ export default function YouTubeBannerGrid() {
                     if (swipe > swipeThreshold) prev();
                   }}
                 >
-                  <Image
+                  <img
                     src={images[selectedIndex]}
                     alt="Preview"
-                    width={1600}
-                    height={900}
-                    priority
+                    loading="eager"
                     className="object-contain max-h-[85vh] w-auto rounded-3xl shadow-[0_0_120px_rgba(34,197,94,0.4)] select-none"
                   />
                 </motion.div>
