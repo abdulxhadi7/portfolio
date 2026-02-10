@@ -106,7 +106,7 @@ export default function Footer() {
             <div className="flex gap-6 text-2xl">
               <motion.a
                 whileHover={{ scale: 1.2, rotate: 8 }}
-                href="https://instagram.com/strangefx"
+                href="https://www.instagram.com/seems.strange?igsh=MWgwMXI3ZW12M3R4eg=="
                 target="_blank"
                 className="hover:text-pink-500 transition"
               >
@@ -115,7 +115,7 @@ export default function Footer() {
 
               <motion.a
                 whileHover={{ scale: 1.2, rotate: -8 }}
-                href="https://twitter.com/strangefx"
+                href="https://x.com/abdulxhadi7?s=21"
                 target="_blank"
                 className="hover:text-sky-400 transition"
               >
@@ -124,7 +124,7 @@ export default function Footer() {
 
               <motion.a
                 whileHover={{ scale: 1.2, rotate: 8 }}
-                href="https://discord.com/users/strangexyzz"
+                href="https://discord.gg/q7qet9wS97"
                 target="_blank"
                 className="hover:text-purple-400 transition"
               >
