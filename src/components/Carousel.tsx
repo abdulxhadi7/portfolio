@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { Github, Linkedin, Play } from "lucide-react";
 
-// About Page - with Unsplash images
+// About Page - Optimized for zero Vercel image usage
 
 export default function AboutPage() {
   const { scrollY } = useScroll();
@@ -100,8 +100,14 @@ export default function AboutPage() {
 
           {/* Right — Portrait */}
           <div className="flex-1 z-10 flex items-center justify-center relative w-full">
-            <motion.div style={{ translateY: y1 }} className="absolute -left-12 -top-8 w-44 h-64 sm:w-56 sm:h-80 rounded-2xl bg-gradient-to-b from-lime-500/30 to-transparent blur-xl opacity-30" />
-            <motion.div style={{ translateY: y2 }} className="absolute -right-12 bottom-6 w-52 h-40 rounded-2xl bg-gradient-to-tr from-green-500/20 to-transparent blur-3xl opacity-30" />
+            <motion.div
+              style={{ translateY: y1 }}
+              className="absolute -left-12 -top-8 w-44 h-64 sm:w-56 sm:h-80 rounded-2xl bg-gradient-to-b from-lime-500/30 to-transparent blur-xl opacity-30"
+            />
+            <motion.div
+              style={{ translateY: y2 }}
+              className="absolute -right-12 bottom-6 w-52 h-40 rounded-2xl bg-gradient-to-tr from-green-500/20 to-transparent blur-3xl opacity-30"
+            />
 
             <motion.div
               initial={{ scale: 0.98, opacity: 0 }}
@@ -116,6 +122,7 @@ export default function AboutPage() {
                 fill
                 className="object-cover"
                 priority
+                unoptimized
               />
 
               {/* Play Badge */}
@@ -131,10 +138,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-           {/* SKILLS / SERVICES */}
+      {/* SKILLS */}
       <section className="pt-12 pb-6">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-3 gap-8 items-start">
-          
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -150,18 +157,9 @@ export default function AboutPage() {
 
           <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
-              {
-                title: "Graphic Design",
-                list: ["Brand identity", "Posters & Banners", "Thumbnails"],
-              },
-              {
-                title: "Video Editing",
-                list: ["Social cuts", "Cinematic edits", "Color grading"],
-              },
-              {
-                title: "Web / UI",
-                list: ["Landing pages", "Interactive UI", "CMS integrations"],
-              },
+              { title: "Graphic Design", list: ["Brand identity", "Posters & Banners", "Thumbnails"] },
+              { title: "Video Editing", list: ["Social cuts", "Cinematic edits", "Color grading"] },
+              { title: "Web / UI", list: ["Landing pages", "Interactive UI", "CMS integrations"] },
             ].map((s, i) => (
               <motion.div
                 key={i}
@@ -186,9 +184,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* The rest of your page remains the same... */}
-      {/* Timeline, Stats, CTA */}
     </main>
   );
 }

@@ -123,7 +123,9 @@ export default function ServicesSection() {
                     src={s.img}
                     alt={s.title}
                     fill
+                    sizes="(max-width:1024px) 100vw, 400px"
                     className="object-cover"
+                    unoptimized
                   />
                   <div className="absolute inset-0 bg-black/50" />
                 </motion.div>
@@ -139,7 +141,7 @@ export default function ServicesSection() {
                   </p>
                 </div>
 
-                {/* BUTTON (Desktop Hover Only) */}
+                {/* BUTTON */}
                 <div className="relative z-10 flex justify-center">
                   <Link href={s.href} onClick={(e) => e.stopPropagation()}>
                     <motion.button
@@ -162,73 +164,64 @@ export default function ServicesSection() {
         </motion.div>
       </section>
 
-     {/* ================= MOBILE – APPLE STYLE ================= */}
-<section className="lg:hidden pt-24 pb-24 bg-black text-white">
-  <div className="px-6">
-    <h1 className="text-4xl font-extrabold uppercase">
-      My <span className="text-lime-400">Services</span>
-    </h1>
-  </div>
-
-  <div
-    className="mt-12 overflow-x-auto no-scrollbar
-      scroll-smooth snap-x snap-mandatory"
-  >
-    {/* Side padding ensures first & last cards center */}
-    <div className="flex gap-6 px-[10vw] w-max">
-      {services.map((s, i) => (
-        <div key={i} className="snap-center shrink-0">
-          <Link href={s.href}>
-            <div
-              className="
-                relative w-[80vw] max-w-[360px]
-                h-[80vh]
-                rounded-3xl overflow-hidden
-                border border-white/10
-                bg-black
-                active:scale-[0.97]
-                transition-transform duration-200
-              "
-            >
-              {/* BACKGROUND IMAGE */}
-              <div className="absolute inset-0">
-                <Image
-                  src={s.img}
-                  alt={s.title}
-                  fill
-                  className="object-cover"
-                />
-                {/* Strong overlay for clean readability */}
-                <div className="absolute inset-0 bg-black/75" />
-              </div>
-
-              {/* CENTERED CONTENT */}
-              <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 text-center">
-                <h2 className="text-2xl font-extrabold">
-                  {s.title}
-                </h2>
-
-                <p className="text-sm text-white/70 mt-4 max-w-[280px]">
-                  {s.description}
-                </p>
-
-                <div className="mt-6">
-                  <button className="px-7 py-3 bg-white text-black rounded-full font-semibold">
-                    Explore
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </Link>
+      {/* ================= MOBILE ================= */}
+      <section className="lg:hidden pt-24 pb-24 bg-black text-white">
+        <div className="px-6">
+          <h1 className="text-4xl font-extrabold uppercase">
+            My <span className="text-lime-400">Services</span>
+          </h1>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
 
+        <div className="mt-12 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory">
+          <div className="flex gap-6 px-[10vw] w-max">
+            {services.map((s, i) => (
+              <div key={i} className="snap-center shrink-0">
+                <Link href={s.href}>
+                  <div
+                    className="
+                      relative w-[80vw] max-w-[360px]
+                      h-[80vh]
+                      rounded-3xl overflow-hidden
+                      border border-white/10
+                      bg-black
+                      active:scale-[0.97]
+                      transition-transform duration-200
+                    "
+                  >
+                    <div className="absolute inset-0">
+                      <Image
+                        src={s.img}
+                        alt={s.title}
+                        fill
+                        sizes="80vw"
+                        className="object-cover"
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-black/75" />
+                    </div>
 
+                    <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 text-center">
+                      <h2 className="text-2xl font-extrabold">
+                        {s.title}
+                      </h2>
 
+                      <p className="text-sm text-white/70 mt-4 max-w-[280px]">
+                        {s.description}
+                      </p>
+
+                      <div className="mt-6">
+                        <button className="px-7 py-3 bg-white text-black rounded-full font-semibold">
+                          Explore
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
     </main>
   );
